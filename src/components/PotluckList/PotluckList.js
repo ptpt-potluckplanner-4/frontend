@@ -44,6 +44,7 @@ export default function PotLuckList() {
     return (
         <div>
             <NavBar />
+            <h1> All Available PotLucks to Join:</h1>
         </div>
     )
 }

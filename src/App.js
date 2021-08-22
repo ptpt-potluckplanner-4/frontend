@@ -5,14 +5,17 @@ import Login from "./components/Login/Login"
 import Profile from "./components/Profile/Profile"
 import PotLuckList from "./components/PotluckList/PotluckList";
 import Potluck from './components/PotluckPage/Potluck'
+import CreatePotluck from "./components/CreatePotluck/CreatePotluck";
+
 
 function App() {
 	return (
 		<div className="App">
 			<Switch>
 				{/* <Route exact path="/" component={Login}></Route> */}
-				<Route path="/signup" component={Signup} />
+				<Route path="/signup"> <Signup /></Route>
 				<Route path="/profile" component={Profile} />
+				<Route path="/createpotluck" component={CreatePotluck} />
 				<Route path="/potlucklist" component={PotLuckList} />
 				<Route path="/potlucklist/:potluckid"> <Potluck /></Route>
 			</Switch>
