@@ -38,8 +38,8 @@ export default function Profile() {
                 </Link>
             </div>
             <Switch>
-                <Route path="/profile/organizing" component={Organizing} />
-                <Route path="/profile/attending" component={AttendingThesePotLucks} />
+                <Route path="/profile/organizing"> <Organizing /> </Route>
+                <Route path="/profile/attending"> <AttendingThesePotLucks /></Route>
             </Switch>
         </div>
     )

@@ -81,6 +81,7 @@ const Signup = () => {
 	const [signUpDisabled, setSignUpDisabled] = useState(initialSignUpButtonDisabled) // boolean
 	const classes = useStyles();
 
+
 	//ONCHANGE EVENT HANDLER - For each input
 	const onChange = e => {
 		//pull out the name and value of the event target
@@ -95,7 +96,6 @@ const Signup = () => {
 			.catch(err => {
 				setSignUpFormErrors({ ...signUpformErrors, [name]: err.message })
 			})
-
 
 		// update just that input change
 		const newFormValues = { ...signUpFormValues, [name]: value }
@@ -134,6 +134,7 @@ const Signup = () => {
 		// 			setUser(newUser);
 		// 		})
 		// })
+
 		// clear the form at end of submit
 		setSignUpFormValues(initialSignUpFormValues);
 
