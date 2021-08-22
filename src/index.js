@@ -4,12 +4,32 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createTheme({
+	palette: {
+		primary: { main: '#6B7AA1' },
+		secondary: { main: '#C1CFC0' },
+		// text: { primary: "#11324D", secondary: "#E7E0C9" }
+	},
+	// typography: {
+
+	// 	fontFamily: 'Architects Daughter'
+
+
+	// }
+});
+
 
 ReactDOM.render(
+
 	<Router>
-		<App />
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
 	</Router>,
 	document.getElementById("root"),
+
 );
 
 // If you want to start measuring performance in your app, pass a function
