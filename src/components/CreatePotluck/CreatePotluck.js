@@ -11,6 +11,17 @@
 import NavBar from "../NavBar/NavBar"
 import React, { useState } from 'react'
 import Axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+// Code from MAterial UI
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+}));
 
 // const initialPotluckObject = {
 //     potLuckOrganizer: "",
@@ -25,6 +36,8 @@ import Axios from 'axios'
 
 
 export default function CreatePotluckForm() {
+    // allows you to use styles from Material UI
+    const classes = useStyles();
 
     // initial url
     const url = "https://potluck-planner-04.herokuapp.com/potlucks/create"
@@ -133,7 +146,9 @@ export default function CreatePotluckForm() {
 
 
                 </div>
-                <input type="submit" value="SUBMIT" />
+                <Button type="submit" value="SUBMIT" variant="contained" color="primary">
+                    Create Potluck
+                </Button>
             </div>
         </form>
     </div>)
