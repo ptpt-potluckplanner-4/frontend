@@ -235,7 +235,7 @@ const Signup = () => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						color="secondary"
+						color="primary"
 						className={classes.submit}
 						disabled={signUpDisabled}
 					>
