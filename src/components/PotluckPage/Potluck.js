@@ -11,6 +11,7 @@ import PotLuckDetails from "../PotluckList/PotLuckDetails";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import PotLuckFoods from "./PotluckFoods";
 
 export default function PotLuck() {
 	const [potLuck, setPotluck] = useState();
@@ -38,6 +39,7 @@ export default function PotLuck() {
 			<NavBar></NavBar>
 			{/* <PotLuckDetails id={potluck_id}></PotLuckDetails> */}
 			<PotLuckDetails potLuck={potLuck}></PotLuckDetails>
+			<PotLuckFoods potLuck={potLuck}/>
 		</div>
 	);
 }
