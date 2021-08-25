@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
 
-export default function PotLuckList({potLuck}) {
+export default function PotLuckList({ potLuck }) {
     const [potLuckList, setPotLuckList] = useState([]);
 
 
@@ -39,8 +39,8 @@ export default function PotLuckList({potLuck}) {
                     <div>
                         <PotLuckDetails potLuck={potLuck} />
                         <Link to={`/potlucklist/${potLuck.potluck_id}`}>
-				<Button>Attend</Button>
-			</Link>
+                            <Button>Attend</Button>
+                        </Link>
                     </div>
 
                 ))}
