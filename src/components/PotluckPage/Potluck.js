@@ -32,11 +32,9 @@ export default function PotLuck() {
 		return <div>Loading Potlucks...</div>;
 	}
 
-	// const { title, organizer, location, date, potluck_id } = potLuck;
 	return (
 		<div className="">
 			<NavBar></NavBar>
-			{/* <PotLuckDetails id={potluck_id}></PotLuckDetails> */}
 			<PotLuckDetails potLuck={potLuck}></PotLuckDetails>
 		</div>
 	);
