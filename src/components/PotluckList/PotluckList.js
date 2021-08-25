@@ -4,47 +4,40 @@
 // link each card to 
 
 import NavBar from "../NavBar/NavBar"
-
-// dummyPotluckData = [{
-//     potLuckOrganizer: "Jeff",
-//     potLuckTitle: "Jeff's pL",
-//     location: "Providence",
-//     time: "3pm",
-//     date: "September 10",
-//     whoIsAttending: [],
-//     items: [{ "beer": "" }, { "more Beer": '' }, { "whiskey": '' }, { "more whiskey": '' }],
-// }, {
-//     potLuckOrganizer: "Bill",
-//     potLuckTitle: "Bill's PL",
-//     location: "Cleveland",
-//     time: "7PM",
-//     date: "September 2",
-//     whoIsAttending: [],
-//     items: [{ "oranges": "" }, { "bananas": '' }, { "grapes": '' }, { "watermelon": '' }],
-// }, {
-//     potLuckOrganizer: "Sue",
-//     potLuckTitle: "Sue's PL",
-//     location: "Maryland",
-//     time: "5PM",
-//     date: "September 23",
-//     whoIsAttending: [],
-//     items: [{ "buns": "" }, { "hotdogs": '' }, { "marshmellows": '' }, { "ketchup": '' }],
-// }, {
-//     potLuckOrganizer: "Tim",
-//     potLuckTitle: "TIm PL",
-//     location: "Vegas",
-//     time: "4PM",
-//     date: "September 15",
-//     whoIsAttending: [],
-//     items: [{ 'plates': "" }, { "gramcrackers": '' }, { "marshmellows": '' }, { "chocolate": '' }],
-// }];
+import PotLuckDetails from "../PotluckList/PotLuckDetails"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function PotLuckList() {
+    const [potLuckList, setPotLuckList] = useState([]);
+
+    useEffect(() => {
+        const getPotluckList = () => {
+            axios
+                .get('https://potluck-planner-04.herokuapp.com/potlucks') // Endpoint to get all potlucks in Database
+                .then(res => {
+                    setPotLuckList(res.data);
+                })
+                .catch(err => {
+                    console.error('Server Error', err);
+                });
+        }
+        getPotluckList();
+    }, []); // empty array makes this only run once
+
 
     return (
         <div>
             <NavBar />
-            <h1> All Available PotLucks to Join:</h1>
+            <h1> All Available PotLucks To Join:</h1>
+            <div className="">
+                {potLuckList.map(potLuck => (
+                    <div>
+                        <PotLuckDetails potLuck={potLuck} />
+                    </div>
+
+                ))}
+            </div>
         </div>
     )
 }
