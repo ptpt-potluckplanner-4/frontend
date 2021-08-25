@@ -1,22 +1,22 @@
-
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-export default function PotLuckDetails(potLuck) {
-    const { title, date, time, location, organizer, potluck_id } = potLuck;
+export default function PotLuckDetails({ potLuck }) {
+	const { title, date, time, location, organizer, potluck_id } = potLuck;
 
-    // Details could include the list functionality or we add another component
-    console.log(potLuck, "potluck from mapped Potlucklists");
-    return (
-        <div className="">
-            {/* Material UI Card */}
-            <div>
-                <h2>{title}</h2>
-                <p>{date}</p>
-            </div>
-            <Link to={`/potlucklist/${potluck_id}`}><Button>Attend</Button></Link>
-
-        </div>
-    );
+	// Details could include the list functionality or we add another component
+	console.log(potLuck, "potluck from mapped Potlucklists");
+	return (
+		<div className="">
+			{/* Material UI Card */}
+			<div>
+				<h2>{title}</h2>
+				<p>{date}</p>
+			</div>
+			<Link to={`/potlucklist/${potluck_id}`}>
+				<Button>Attend</Button>
+			</Link>
+		</div>
+	);
 }
