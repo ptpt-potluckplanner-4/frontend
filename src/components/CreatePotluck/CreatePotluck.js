@@ -65,7 +65,7 @@ export default function CreatePotluckForm() {
 	);
 
 	const [potluckId, setPotluckId] = useState(0);
-	const [potluckData, setPotluckData] = useState({});
+	//const [potluckData, setPotluckData] = useState({});
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
 
@@ -83,7 +83,7 @@ export default function CreatePotluckForm() {
 		})
 			.then((res) => {
 				console.log(res.data);
-				setPotluckData(res.data);
+				setPotluckFormValue(res.data);
 				setPotluckId(res.data.potluck_id);
 			})
 			.finally(() => {
@@ -190,10 +190,10 @@ export default function CreatePotluckForm() {
 			</form>
 
 			<div className="form-group" style={{ display: `${addFoodDiv}` }}>
-				<p> Potluck Event Name: {potluckData.title}</p>
-				<p> Date: {potluckData.date}</p>
-				<p> Time: {potluckData.time}</p>
-				<p> Location: {potluckData.location}</p>
+				<p> Potluck Event Name: {potluckFormValue.title}</p>
+				<p> Date: {potluckFormValue.date}</p>
+				<p> Time: {potluckFormValue.time}</p>
+				<p> Location: {potluckFormValue.location}</p>
 
 				{/* FIX THIS!!!!!!!!!!!!! */}
 				<div>

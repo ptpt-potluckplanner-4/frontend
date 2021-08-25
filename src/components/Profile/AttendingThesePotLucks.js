@@ -1,8 +1,8 @@
 
 
-export default function AttendingThesePotlucks() {
+export default function AttendingThesePotlucks({ User }) {
 
     return (<div>
-        <h1>Potlucks You are Attending</h1>
+        <h1>Potluck's {User} is Attending</h1>
     </div>)
 }

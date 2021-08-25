@@ -1,8 +1,9 @@
 
-export default function Organizing() {
+export default function Organizing({ User }) {
 
     return (<div>
 
-        <h1>Potlucks You are Organizing</h1>
+        <h1>Potluck's {User} is Organizing</h1>
+
     </div>)
 }

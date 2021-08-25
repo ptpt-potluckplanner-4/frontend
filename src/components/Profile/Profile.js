@@ -20,7 +20,9 @@ import NavBar from "../NavBar/NavBar"
 import AttendingThesePotLucks from "./AttendingThesePotLucks"
 import Organizing from "./Organizing"
 
-export default function Profile() {
+export default function Profile({ User }) {
+
+    console.log(User, "user from profile");
 
     return (
         <div>
@@ -38,8 +40,8 @@ export default function Profile() {
                 </Link>
             </div>
             <Switch>
-                <Route path="/profile/organizing"> <Organizing /> </Route>
-                <Route path="/profile/attending"> <AttendingThesePotLucks /></Route>
+                <Route path="/profile/organizing"> <Organizing User={User} /> </Route>
+                <Route path="/profile/attending"> <AttendingThesePotLucks User={User} /></Route>
             </Switch>
         </div>
     )
