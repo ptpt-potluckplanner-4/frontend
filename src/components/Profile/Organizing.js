@@ -5,6 +5,11 @@ import PotLuckDetails from "../PotluckList/PotLuckDetails";
 export default function Organizing({ User }) {
     const [potLuckListUserIsAttending, setPotLuckListUserIsAttending] = useState([]);
 
+
+    // get all potlucks organized by user
+    // [GET] https://potluck-planner-04.herokuapp.com/users/:id/hosted-potlucks
+    // where :id is the user_id
+
     // replace Michael Scott with User.name once endpoint for user is built out
     useEffect(() => {
         const getPotluckList = () => {

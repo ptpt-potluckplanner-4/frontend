@@ -7,10 +7,11 @@ import PotLuckList from "./components/PotluckList/PotluckList";
 import Potluck from './components/PotluckPage/Potluck'
 import CreatePotluck from "./components/CreatePotluck/CreatePotluck";
 import { useState } from "react";
+import "./index.css";
 
 
 function App() {
-	const [User, setUser] = useState('Bob');
+	const [User, setUser] = useState('User'); // change this to recieve user in backend
 
 
 	return (
@@ -31,7 +32,3 @@ function App() {
 
 export default App;
 
-
-// had to comment out the link for login 
-//because I didn't set up an export on that 
-//since Chase did on his branch

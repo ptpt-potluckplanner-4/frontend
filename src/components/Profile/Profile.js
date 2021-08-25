@@ -19,6 +19,30 @@ import { Route, Switch, Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar"
 import AttendingThesePotLucks from "./AttendingThesePotLucks"
 import Organizing from "./Organizing"
+import { Box } from "@material-ui/core";
+//import { styled } from '@material-ui/core/styles';
+//import { flexbox } from "@material-ui/system";
+import styled from "styled-components";
+
+// styled component
+const StyledButton = styled.button`
+  /* Adapt the colors based on primary prop */
+  background: ${props => props.primary ? "#E7E0C9" : "#C1CFC0"};
+  
+  color: black;
+ font-size: 1em;
+  margin: 1em;
+  padding: 0.75em 1.25em;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0px 5px 5px grey;
+  textDecoration: none;
+  transition: all .2s ease-in-out;
+  &:hover {
+    text-decoration: none;
+    ${'' /* color: #6B7AA1; */}
+    transform: scale(1.1);}
+`;
 
 export default function Profile({ User }) {
 
@@ -27,17 +51,20 @@ export default function Profile({ User }) {
     return (
         <div>
             <NavBar />
-            <div className="usersProfileButtons">
-                <Link to="/profile/organizing">
-                    <button>
-                        View Your Organized Potlucks
-                    </button>
-                </Link>
-                <Link to="/profile/attending">
-                    <button>
-                        View Potlucks You are Attending
-                    </button>
-                </Link>
+            <div className="usersProfileButtons" >
+                <Box display="flex" justifyContent="center" alignItems="center" flexDirection="row" >
+                    <Link to="/profile/organizing">
+
+                        <StyledButton primary>
+                            View Your Organized Potlucks
+                        </StyledButton>
+                    </Link>
+                    <Link to="/profile/attending">
+                        <StyledButton  >
+                            View Potlucks You are Attending
+                        </StyledButton>
+                    </Link>
+                </Box>
             </div>
             <Switch>
                 <Route path="/profile/organizing"> <Organizing User={User} /> </Route>
@@ -46,4 +73,8 @@ export default function Profile({ User }) {
         </div>
     )
 }
+
+/* // primary: { main: '#6B7AA1' },
+// 		secondary: { main: '#C1CFC0' },
+       // text: { primary: "#11324D", secondary: "#E7E0C9" } */
 

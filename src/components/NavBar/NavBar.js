@@ -6,8 +6,10 @@ import styled from 'styled-components';
 
 
 
+
 const StyledNav = styled.nav`
-  background-color: papayawhip;
+  ${'' /* background-color: papayawhip; */}
+  background-color: #6B7AA1; 
   font-size: 1 rem;
   display: flex;
   flex-flow: row nowrap;
@@ -18,31 +20,34 @@ const StyledNav = styled.nav`
   }
 `;
 
-const StyledNavMObile = styled.nav`
-  background-color: papayawhip;
-  font-size: 1 rem;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  justify-content: space-around;
-  align-items: center;
-
+const StyledH1 = styled.h1`
+  color: whitesmoke;
+  font-size: 1.5rem;
+  ${'' /* box-shadow: 0px 5px 5px grey; */}
+  &:hover {
+    text-decoration: none;
+    color: black;
+    transform: scale(1.05);
+   
   }
 `;
+
 
 const StyledP = styled.p`
-  color: #11324D;
-  font-size: 1 rem;
+  color: black; 
+  font-weight: 550;
+  font-size: .8 rem;
   display: flex;
   text-transform: uppercase;
   textDecoration: none;
   transition: all .2s ease-in-out;
+  ${'' /* box-shadow: 0px 5px 5px grey; */}
   &:hover {
     text-decoration: none;
-    color: #6B7AA1;
-    border: 1px solid #11324D;
-    border-radius: 2px;
+    color: whitesmoke;
     transform: scale(1.1);
+    
+    textDecoration: none;
   }
 `;
 
@@ -72,7 +77,7 @@ export default function NavBar() {
   return (<nav>
     {/* onResize={(window.outerWidth > 729) ? { display: "block" } : { display: "none" } */}
     <StyledNav className='navBarLinks'>
-      <h1 className='mainHeader'>POTLUCK PLANNER</h1>
+      <StyledH1 className='mainHeader'>POTLUCK PLANNER</StyledH1>
       <Link style={{ textDecoration: 'none' }} to='/profile'><StyledP>Profile</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/createpotluck"><StyledP>Create a Potluck</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/potlucklist"><StyledP>Join a Potluck</StyledP></Link>
