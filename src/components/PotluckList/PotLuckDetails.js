@@ -13,10 +13,13 @@ export default function PotLuckDetails({ potLuck }) {
 			<div>
 				<h2>{title}</h2>
 				<p>{date}</p>
+                <p>{time}</p>
+                <p>{location}</p>
+                <p>{organizer}</p>
 			</div>
-			<Link to={`/potlucklist/${potluck_id}`}>
+			{/* <Link to={`/potlucklist/${potluck_id}`}>
 				<Button>Attend</Button>
-			</Link>
+			</Link> */}
 		</div>
 	);
 }

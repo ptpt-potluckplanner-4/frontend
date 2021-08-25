@@ -7,9 +7,13 @@ import NavBar from "../NavBar/NavBar"
 import PotLuckDetails from "../PotluckList/PotLuckDetails"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
-export default function PotLuckList() {
+
+export default function PotLuckList({potLuck}) {
     const [potLuckList, setPotLuckList] = useState([]);
+
 
     useEffect(() => {
         const getPotluckList = () => {
@@ -34,6 +38,9 @@ export default function PotLuckList() {
                 {potLuckList.map(potLuck => (
                     <div>
                         <PotLuckDetails potLuck={potLuck} />
+                        <Link to={`/potlucklist/${potLuck.potluck_id}`}>
+				<Button>Attend</Button>
+			</Link>
                     </div>
 
                 ))}
