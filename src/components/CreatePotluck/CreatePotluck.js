@@ -1,4 +1,4 @@
-/ Chase builds this
+// Chase builds this
 
 // basically a form that creates a todo list and have a create button
 // Create Date, time, and location of event
@@ -15,25 +15,25 @@ import * as yup from 'yup';
 import createPotluckFormSchema from '../../validation/createPotluckFormSchema.js';
 import "../../index.css";
 
-// initial potluck state
-const initialPotluckState = {
-	title: "",
-	date: "",
-	time: "",
-	location: "",
-};
+	// initial potluck state
+	const initialPotluckState = {
+		title: "",
+		date: "",
+		time: "",
+		location: "",
+	};
 
-//initial food state
-const initialFoodValue = { food_name: "" };
+	//initial food state
+	const initialFoodValue = { food_name: "" }; 
 
-// initial create potluck errors
-const initialCreatePotluckErrors = {
-	title: "",
-	date: "",
-	time: "",
-	location: "",
-	organizer: "",
-};
+	// initial create potluck errors
+	const initialCreatePotluckErrors = {
+		title: "",
+		date: "",
+		time: "",
+		location: "",
+		organizer: "",
+	};
 
 
 const initialCreateButtonDisabled = true;
@@ -54,30 +54,29 @@ export default function CreatePotluckForm() {
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
 
-	//ONCHANGE EVENT HANDLER - For each input
-	const onChange = e => {
-		//pull out the name and value of the event target
-		const { name, value } = e.target;
+		//ONCHANGE EVENT HANDLER - For each input
+		const onChange = e => {
+			//pull out the name and value of the event target
+			const { name, value } = e.target;
+	
+			//check with yup, run form errors
+	//check for errors via yup
+	yup.reach(createPotluckFormSchema, name)
+	.validate(value)
+	.then(() => {
+		setCreatePotluckErrors({ ...createPotluckErrors, [name]: "" })
+	})
+	.catch(err => {
+		setCreatePotluckErrors({ ...createPotluckErrors, [name]: err.message })
+	})
+	console.log(createPotluckErrors)
 
-		//check with yup, run form errors
-		//check for errors via yup
-		yup.reach(createPotluckFormSchema, name)
-			.validate(value)
-			.then(() => {
-				setCreatePotluckErrors({ ...createPotluckErrors, [name]: "" })
-			})
-			.catch(err => {
-				setCreatePotluckErrors({ ...createPotluckErrors, [name]: err.message })
-			})
-		console.log(createPotluckErrors)
-
-		const newPotluckFormValues = {
-			...potluckFormValues,
-			[name]: e.target.value,
-		}
-		setPotluckFormValues(newPotluckFormValues);
-
+	const newPotluckFormValues = { ...potluckFormValues,
+		[name]: e.target.value,
 	}
+	setPotluckFormValues(newPotluckFormValues);
+	
+		}
 
 	//ENABLE BUTTON WHEN NO ERRORS EXIST
 	useEffect(() => {
@@ -95,7 +94,7 @@ export default function CreatePotluckForm() {
 	const submitPotluck = (e) => {
 		e.preventDefault();
 
-
+		
 
 		// send to database via axios
 		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/create", {
@@ -185,12 +184,12 @@ export default function CreatePotluckForm() {
 						</div>
 
 						<div className='formErrors'>
-							{/* RENDER THE VALIDATION ERRORS HERE */}
-							<div>{createPotluckErrors.title}</div>
-							<div>{createPotluckErrors.date}</div>
-							<div>{createPotluckErrors.time}</div>
-							<div>{createPotluckErrors.location}</div>
-						</div>
+						{/* RENDER THE VALIDATION ERRORS HERE */}
+						<div>{createPotluckErrors.title}</div>
+						<div>{createPotluckErrors.date}</div>
+						<div>{createPotluckErrors.time}</div>
+						<div>{createPotluckErrors.location}</div>
+					</div>
 
 						<Button
 							type="submit"
@@ -211,7 +210,7 @@ export default function CreatePotluckForm() {
 				<p> Date: {potluckFormValues.date}</p>
 				<p> Time: {potluckFormValues.time}</p>
 				<p> Location: {potluckFormValues.location}</p>
-				{/* foods */}
+{/* foods */}
 				<div>
 					<h3> Foods </h3>
 					<ul>
