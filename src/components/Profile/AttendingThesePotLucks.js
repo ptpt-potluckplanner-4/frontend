@@ -28,7 +28,10 @@ export default function AttendingThesePotlucks({ User }) {
     // change Michael Scott to User once endpoints are built out for the User
     return (
         <div>
-            <h1>Potluck's {User} is Attending</h1>
+            <h2 style={{ boxShadow: "0px 5px 5px grey", width: "50%", margin: "50px auto" }}>
+                Potluck's {User} is Attending
+            </h2>
+
             <div>
                 {attendingThesePotlucks.map(eachPreAttendedPotluck => {
                     return (

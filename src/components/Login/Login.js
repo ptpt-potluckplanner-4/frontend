@@ -86,13 +86,14 @@ export default function SignIn() {
                 {/* <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar> */}
-                <Typography component="h1" variant="h5">
-                    LogIn                </Typography>
+                <Typography component="h1" variant="h4">
+                    LogIn
+                </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
-                        variant="filled"
+                        variant="outlined"
                         margin="normal"
-                        required
+
                         fullWidth
                         id="email"
                         label="Email Address"
@@ -103,9 +104,9 @@ export default function SignIn() {
                         value={logInFormValues.email}
                     />
                     <TextField
-                        variant="filled"
+                        variant="outlined"
                         margin="normal"
-                        required
+
                         fullWidth
                         name="password"
                         label="Password"

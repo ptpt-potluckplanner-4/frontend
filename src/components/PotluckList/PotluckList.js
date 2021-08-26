@@ -10,7 +10,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-
+import "../../index.css";
 
 
 
@@ -36,7 +36,10 @@ export default function PotLuckList({ potLuck }) {
     return (
         <div>
             <NavBar />
-            <h1> All Available PotLucks To Join:</h1>
+            <h1 style={{ boxShadow: "0px 5px 5px grey", width: "70%", margin: "30px auto 0 auto" }}>
+                Join a Potluck
+            </h1>
+
             <div className="">
                 {potLuckList.map(potLuck => (
                     <div>
