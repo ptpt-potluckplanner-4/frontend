@@ -108,7 +108,7 @@ export default function CreatePotluckForm() {
 	const foodSubmit = (e) => {
 		axios
 			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/create/${potluckId}/foods`,
+				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
 				{
 					food_name: foodValue.food_name,
 				},
