@@ -24,7 +24,7 @@ import createPotluckFormSchema from '../../validation/createPotluckFormSchema.js
 	};
 
 	//initial food state
-	const initialFoodValue = { food_name: "" };
+	const initialFoodValue = { food_name: "" }; 
 
 	// initial create potluck errors
 	const initialCreatePotluckErrors = {
