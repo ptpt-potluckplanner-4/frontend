@@ -9,11 +9,11 @@
 import NavBar from "../NavBar/NavBar";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import * as yup from 'yup';
 import createPotluckFormSchema from '../../validation/createPotluckFormSchema.js';
+import "../../index.css";
 
 	// initial potluck state
 	const initialPotluckState = {
@@ -69,7 +69,8 @@ export default function CreatePotluckForm() {
 	.catch(err => {
 		setCreatePotluckErrors({ ...createPotluckErrors, [name]: err.message })
 	})
-	
+	console.log(createPotluckErrors)
+
 	const newPotluckFormValues = { ...potluckFormValues,
 		[name]: e.target.value,
 	}
@@ -79,11 +80,14 @@ export default function CreatePotluckForm() {
 
 	//ENABLE BUTTON WHEN NO ERRORS EXIST
 	useEffect(() => {
+
 		// ADJUST THE STATUS OF `dispotluckabled` EVERY TIME `formValues` CHANGES
 		createPotluckFormSchema.isValid(potluckFormValues)
 			.then(isSchemaValid => {
 				setCreateDisabled(!isSchemaValid) //disable the submt button if not valid
+
 			})
+
 	}, [potluckFormValues])
 
 	// submit handler for Creating potluck
@@ -104,11 +108,14 @@ export default function CreatePotluckForm() {
 				console.log(res.data);
 				setPotluckFormValues(res.data);
 				setPotluckId(res.data.potluck_id);
+
 			})
 			.finally(() => {
 				setCreatePotluckDiv("none");
 				setAddFoodDiv("block");
+				console.log(potluckId)
 			});
+
 	};
 
 	const foodSubmit = (e) => {
@@ -176,13 +183,12 @@ export default function CreatePotluckForm() {
 							/>
 						</div>
 
-						<div className='signUpErrors'>
+						<div className='formErrors'>
 						{/* RENDER THE VALIDATION ERRORS HERE */}
-						<div>{createPotluckErrors.firstname}</div>
-						<div>{createPotluckErrors.lastname}</div>
-						<div>{createPotluckErrors.username}</div>
-						<div>{createPotluckErrors.email}</div>
-						<div>{createPotluckErrors.password}</div>
+						<div>{createPotluckErrors.title}</div>
+						<div>{createPotluckErrors.date}</div>
+						<div>{createPotluckErrors.time}</div>
+						<div>{createPotluckErrors.location}</div>
 					</div>
 
 						<Button
