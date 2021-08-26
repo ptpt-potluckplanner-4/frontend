@@ -35,7 +35,7 @@ const StyledH1 = styled.h1`
 
 
 const StyledP = styled.p`
-  color: black; 
+  color: whitesmoke; 
   font-weight: 550;
   font-size: .8 rem;
   display: flex;
@@ -45,7 +45,7 @@ const StyledP = styled.p`
   ${'' /* box-shadow: 0px 5px 5px grey; */}
   &:hover {
     text-decoration: none;
-    color: whitesmoke;
+    color: black;
     transform: scale(1.1);
     
     textDecoration: none;

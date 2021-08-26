@@ -87,9 +87,17 @@ export default function PotLuckDetails({ potLuck }) {
   const history = useHistory();
   const paramsLocation = history.location.pathname;
 
-  // decides whether or not the attend button should be on the potluck card
+  // Toggles buttons depending on page
   function ToggleAttendButton() {
     if (paramsLocation === "/potlucklist") { return { display: "block" } } else { return { display: "none" } }
+  }
+
+  function ToggleEditButton() {
+    if (paramsLocation === "/profile/organizing") { return { display: "block" } } else { return { display: "none" } }
+  }
+
+  function ToggleViewButton() {
+    if (paramsLocation === "/profile/attending") { return { display: "block" } } else { return { display: "none" } }
   }
 
   // Details could include the list functionality or we add another component
@@ -107,6 +115,8 @@ export default function PotLuckDetails({ potLuck }) {
             <StyledP><StyledSpan>Planned By:</StyledSpan> {organizer}</StyledP>
             <Link style={{ textDecoration: "none" }} to={`/potlucklist/${potLuck.potluck_id}`}>
               <StyledButton style={ToggleAttendButton()}>Attend</StyledButton>
+              <StyledButton style={ToggleEditButton()}>Edit</StyledButton>
+              <StyledButton style={ToggleViewButton()}>View</StyledButton>
             </Link>
           </StyledDetailsDiv>
         </div>
@@ -115,3 +125,5 @@ export default function PotLuckDetails({ potLuck }) {
     </div>
   );
 }
+
+// add delete endpoint
