@@ -9,32 +9,11 @@
 import NavBar from "../NavBar/NavBar";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-
-// Code from MAterial UI
-const useStyles = makeStyles((theme) => ({
-	root: {
-		"& > *": {
-			margin: theme.spacing(1),
-		},
-	},
-}));
-
-// const initialPotluckObject = {
-//     potLuckOrganizer: "",
-//     potLuckTitle: "",
-//     location: "",
-//     time: "",
-//     date: "",
-//     whoIsAttending: [],
-//     items: [{ plates, personwhosbringingplates }, { pineapple, personwhosbringingpineapple, }, etc.],
-// }
-
-export default function CreatePotluckForm() {
-	// allows you to use styles from Material UI
-	const classes = useStyles();
+import * as yup from 'yup';
+import createPotluckFormSchema from '../../validation/createPotluckFormSchema.js';
+import "../../index.css";
 
 	// initial potluck state
 	const initialPotluckState = {
@@ -45,7 +24,7 @@ export default function CreatePotluckForm() {
 	};
 
 	//initial food state
-	const initialFoodValue = { food_name: "" };
+	const initialFoodValue = { food_name: "" }; 
 
 	// initial create potluck errors
 	const initialCreatePotluckErrors = {
@@ -56,40 +35,87 @@ export default function CreatePotluckForm() {
 		organizer: "",
 	};
 
+
+const initialCreateButtonDisabled = true;
+
+export default function CreatePotluckForm() {
+	// allows you to use styles from Material UI
+
 	// state for potluckFormValue ---potluckFormValue === form values
-	const [potluckFormValue, setPotluckFormValue] = useState(initialPotluckState);
+	const [potluckFormValues, setPotluckFormValues] = useState(initialPotluckState);
 	const [foodValue, setFoodValue] = useState(initialFoodValue);
 	const [foodItemArray, setFoodItemArray] = useState([]);
 	const [createPotluckErrors, setCreatePotluckErrors] = useState(
-		initialCreatePotluckErrors,
-	);
+		initialCreatePotluckErrors);
+	const [createDisabled, setCreateDisabled] = useState(initialCreateButtonDisabled) // boolean;
 
 	const [potluckId, setPotluckId] = useState(0);
 	//const [potluckData, setPotluckData] = useState({});
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
 
+		//ONCHANGE EVENT HANDLER - For each input
+		const onChange = e => {
+			//pull out the name and value of the event target
+			const { name, value } = e.target;
+	
+			//check with yup, run form errors
+	//check for errors via yup
+	yup.reach(createPotluckFormSchema, name)
+	.validate(value)
+	.then(() => {
+		setCreatePotluckErrors({ ...createPotluckErrors, [name]: "" })
+	})
+	.catch(err => {
+		setCreatePotluckErrors({ ...createPotluckErrors, [name]: err.message })
+	})
+	console.log(createPotluckErrors)
+
+	const newPotluckFormValues = { ...potluckFormValues,
+		[name]: e.target.value,
+	}
+	setPotluckFormValues(newPotluckFormValues);
+	
+		}
+
+	//ENABLE BUTTON WHEN NO ERRORS EXIST
+	useEffect(() => {
+
+		// ADJUST THE STATUS OF `dispotluckabled` EVERY TIME `formValues` CHANGES
+		createPotluckFormSchema.isValid(potluckFormValues)
+			.then(isSchemaValid => {
+				setCreateDisabled(!isSchemaValid) //disable the submt button if not valid
+
+			})
+
+	}, [potluckFormValues])
+
 	// submit handler for Creating potluck
 	const submitPotluck = (e) => {
 		e.preventDefault();
 
+		
+
 		// send to database via axios
-		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/", {
-			title: potluckFormValue.title,
-			date: potluckFormValue.date,
-			time: potluckFormValue.time,
-			location: potluckFormValue.location,
+		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/create", {
+			title: potluckFormValues.title,
+			date: potluckFormValues.date,
+			time: potluckFormValues.time,
+			location: potluckFormValues.location,
 			organizer: 1, //this should be state.user_id
 		})
 			.then((res) => {
 				console.log(res.data);
-				setPotluckFormValue(res.data);
+				setPotluckFormValues(res.data);
 				setPotluckId(res.data.potluck_id);
+
 			})
 			.finally(() => {
 				setCreatePotluckDiv("none");
 				setAddFoodDiv("block");
+				console.log(potluckId)
 			});
+
 	};
 
 	const foodSubmit = (e) => {
@@ -122,13 +148,8 @@ export default function CreatePotluckForm() {
 								type="text"
 								name="title"
 								id="title"
-								onChange={(e) =>
-									setPotluckFormValue({
-										...potluckFormValue,
-										title: e.target.value,
-									})
-								}
-								value={potluckFormValue.name}
+								onChange={onChange}
+								value={potluckFormValues.name}
 							/>
 						</div>
 						<div className="form-group">
@@ -137,13 +158,8 @@ export default function CreatePotluckForm() {
 								type="date"
 								name="date"
 								id="date"
-								onChange={(e) =>
-									setPotluckFormValue({
-										...potluckFormValue,
-										date: e.target.value,
-									})
-								}
-								value={potluckFormValue.date}
+								onChange={onChange}
+								value={potluckFormValues.date}
 							/>
 						</div>
 						<div className="form-group">
@@ -152,13 +168,8 @@ export default function CreatePotluckForm() {
 								type="time"
 								name="time"
 								id="time"
-								onChange={(e) =>
-									setPotluckFormValue({
-										...potluckFormValue,
-										time: e.target.value,
-									})
-								}
-								value={potluckFormValue.time}
+								onChange={onChange}
+								value={potluckFormValues.time}
 							/>
 						</div>
 						<div className="form-group">
@@ -167,21 +178,26 @@ export default function CreatePotluckForm() {
 								type="text"
 								name="location"
 								id="location"
-								onChange={(e) =>
-									setPotluckFormValue({
-										...potluckFormValue,
-										location: e.target.value,
-									})
-								}
-								value={potluckFormValue.location}
+								onChange={onChange}
+								value={potluckFormValues.location}
 							/>
 						</div>
+
+						<div className='formErrors'>
+						{/* RENDER THE VALIDATION ERRORS HERE */}
+						<div>{createPotluckErrors.title}</div>
+						<div>{createPotluckErrors.date}</div>
+						<div>{createPotluckErrors.time}</div>
+						<div>{createPotluckErrors.location}</div>
+					</div>
 
 						<Button
 							type="submit"
 							value="SUBMIT"
 							variant="contained"
 							color="primary"
+							disabled={createDisabled}
+
 						>
 							Create Potluck
 						</Button>
@@ -190,12 +206,11 @@ export default function CreatePotluckForm() {
 			</form>
 
 			<div className="form-group" style={{ display: `${addFoodDiv}` }}>
-				<p> Potluck Event Name: {potluckFormValue.title}</p>
-				<p> Date: {potluckFormValue.date}</p>
-				<p> Time: {potluckFormValue.time}</p>
-				<p> Location: {potluckFormValue.location}</p>
-
-				{/* FIX THIS!!!!!!!!!!!!! */}
+				<p> Potluck Event Name: {potluckFormValues.title}</p>
+				<p> Date: {potluckFormValues.date}</p>
+				<p> Time: {potluckFormValues.time}</p>
+				<p> Location: {potluckFormValues.location}</p>
+{/* foods */}
 				<div>
 					<h3> Foods </h3>
 					<ul>
@@ -207,7 +222,6 @@ export default function CreatePotluckForm() {
 							);
 						})}
 					</ul>
-					{/* FIX THIS ABOVE!!!!!! */}
 				</div>
 
 				<input
