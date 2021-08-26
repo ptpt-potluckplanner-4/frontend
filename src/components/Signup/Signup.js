@@ -151,7 +151,7 @@ const Signup = () => {
 				{/* <Avatar className={classes.avatar}> */}
 				{/* <LockOutlinedIcon /> */}
 				{/* </Avatar> */}
-				<Typography component="h1" variant="h5">
+				<Typography component="h1" variant="h4">
 					Join PotLuck Planner
 				</Typography>
 				<form onSubmit={submitSignUpForm} className={classes.form} noValidate>
@@ -160,8 +160,8 @@ const Signup = () => {
 							<TextField
 								autoComplete="fname"
 								name="firstname"
-								variant="filled"
-								required
+								variant="outlined"
+
 								fullWidth
 								id="firstName"
 								label="First Name"
@@ -172,8 +172,8 @@ const Signup = () => {
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
-								variant="filled"
-								required
+								variant="outlined"
+
 								fullWidth
 								id="lastName"
 								label="Last Name"
@@ -185,8 +185,8 @@ const Signup = () => {
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
-								variant="filled"
-								required
+								variant="outlined"
+
 								fullWidth
 								id="username"
 								label="User Name"
@@ -198,8 +198,8 @@ const Signup = () => {
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
-								variant="filled"
-								required
+								variant="outlined"
+
 								fullWidth
 								id="email"
 								label="Email Address"
@@ -212,8 +212,8 @@ const Signup = () => {
 
 						<Grid item xs={12}>
 							<TextField
-								variant="filled"
-								required
+								variant="outlined"
+
 								fullWidth
 								name="password"
 								label="Password"

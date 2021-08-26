@@ -27,7 +27,9 @@ export default function EditPotluck({ User }) {
 
 
     return (<div>
-        <h1>Edit This Potluck</h1>
+        <h2 style={{ boxShadow: "0px 5px 5px grey", width: "50%", margin: "50px auto" }}>
+            Edit This Potluck
+        </h2>
     </div>)
 }
 

@@ -32,7 +32,9 @@ export default function Organizing({ User }) {
 
     return (<div>
 
-        <h1>Potluck's {User} is Organizing</h1>
+        <h2 style={{ boxShadow: "0px 5px 5px grey", width: "50%", margin: "50px auto" }}>
+            Potluck {User} Is Organizing
+        </h2>
         <div className="">
             {potLuckListUserIsAttending.map(eachpotLuck => (
                 <div>

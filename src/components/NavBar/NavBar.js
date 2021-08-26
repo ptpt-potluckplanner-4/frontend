@@ -96,7 +96,7 @@ export default function NavBar() {
       </section>
     </StyledNavMObile> */}
 
-  </nav >)
+  </nav>)
 }
 
 
