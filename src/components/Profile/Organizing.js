@@ -11,6 +11,7 @@ export default function Organizing({ User }) {
     // where :id is the user_id
 
     // replace Michael Scott with User.name once endpoint for user is built out
+
     useEffect(() => {
         const getPotluckList = () => {
             axios
@@ -27,6 +28,8 @@ export default function Organizing({ User }) {
         getPotluckList();
     }, []); // empty array makes this only run once
 
+
+
     return (<div>
 
         <h1>Potluck's {User} is Organizing</h1>
@@ -42,3 +45,19 @@ export default function Organizing({ User }) {
 
     </div>)
 }
+
+
+//code for attending, just dont wanna push both files atm -chase
+// return (
+//     <div>
+//         <h1>Potluck's {User} is Attending</h1>
+//         <div>
+//             {attendingThesePotlucks.map(eachPreAttendedPotluck => (
+//             <div>
+//             <PotLuckDetails potLuck={eachPreAttendedPotluck} />
+//             </div>
+//             ))}
+//         </div>
+//     </div>
+// )
+
