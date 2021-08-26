@@ -13,24 +13,35 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
-// Code from MAterial UI
+
+
+// MATERIAL UI STYLES
 const useStyles = makeStyles((theme) => ({
 	root: {
 		"& > *": {
 			margin: theme.spacing(1),
 		},
 	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		margin: theme.spacing(1),
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%', // Fix IE 11 issue.
+		marginTop: theme.spacing(3),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+
+	},
 }));
 
-// const initialPotluckObject = {
-//     potLuckOrganizer: "",
-//     potLuckTitle: "",
-//     location: "",
-//     time: "",
-//     date: "",
-//     whoIsAttending: [],
-//     items: [{ plates, personwhosbringingplates }, { pineapple, personwhosbringingpineapple, }, etc.],
-// }
 
 export default function CreatePotluckForm() {
 	// allows you to use styles from Material UI
@@ -74,7 +85,7 @@ export default function CreatePotluckForm() {
 		e.preventDefault();
 
 		// send to database via axios
-		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/", {
+		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/create", {
 			title: potluckFormValue.title,
 			date: potluckFormValue.date,
 			time: potluckFormValue.time,
@@ -82,20 +93,22 @@ export default function CreatePotluckForm() {
 			organizer: 1, //this should be state.user_id
 		})
 			.then((res) => {
-				console.log(res.data);
+				console.log(res.data.potluck_id, "new id from created potluck from submit");
 				setPotluckFormValue(res.data);
-				setPotluckId(res.data.potluck_id);
+				setPotluckId(res.data.potluck_id); // this has correct id
+
 			})
 			.finally(() => {
 				setCreatePotluckDiv("none");
 				setAddFoodDiv("block");
+				console.log(potluckId, "potluck id") //this does not
 			});
 	};
 
 	const foodSubmit = (e) => {
 		axios
 			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
+				`https://potluck-planner-04.herokuapp.com/potlucks/create/${potluckId}/foods`,
 				{
 					food_name: foodValue.food_name,
 				},

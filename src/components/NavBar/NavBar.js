@@ -16,7 +16,8 @@ const StyledNav = styled.nav`
   justify-content: center;
   justify-content: space-around;
   align-items: center;
-
+  border-bottom: .5px solid black;
+	box-shadow: 0px 2px 2px grey;
   }
 `;
 
@@ -81,7 +82,7 @@ export default function NavBar() {
       <Link style={{ textDecoration: 'none' }} to='/profile'><StyledP>Profile</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/createpotluck"><StyledP>Create a Potluck</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/potlucklist"><StyledP>Join a Potluck</StyledP></Link>
-      <Link style={{ textDecoration: 'none' }} to="/"><StyledP>LogOut</StyledP></Link>
+      <Link style={{ textDecoration: 'none' }} to="/"><StyledP ><span style={{ border: "1.75px solid black", padding: "5px", boxShadow: "0px 2px 2px black", }} >LogOut</span></StyledP></Link>
     </StyledNav>
 
     {/* <StyledNavMObile className='navBarLinks' style={(window.outerWidth > 729) ? { display: "none" } : { display: "block" }}>
@@ -95,7 +96,7 @@ export default function NavBar() {
       </section>
     </StyledNavMObile> */}
 
-  </nav>)
+  </nav >)
 }
 
 

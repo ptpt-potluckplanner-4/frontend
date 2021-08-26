@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios";
+import PotLuckDetails from "../PotluckList/PotLuckDetails";
 
 export default function AttendingThesePotlucks({ User }) {
     const [attendingThesePotlucks, setAttendingThesePotlucks] = useState([]);
@@ -31,7 +32,11 @@ export default function AttendingThesePotlucks({ User }) {
             <div>
                 {attendingThesePotlucks.map(eachPreAttendedPotluck => {
                     return (
-                        <h2>{eachPreAttendedPotluck.title}</h2>
+                        // might need to get an axios and exchange organizer id
+                        // with an actual name associated with organizer
+
+
+                        <PotLuckDetails potLuck={eachPreAttendedPotluck} ></PotLuckDetails>
                     )
                 })}
             </div>
