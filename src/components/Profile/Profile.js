@@ -23,6 +23,7 @@ import { Box } from "@material-ui/core";
 //import { styled } from '@material-ui/core/styles';
 //import { flexbox } from "@material-ui/system";
 import styled from "styled-components";
+import EditPotluck from "./EditPotluck"
 
 // styled component
 const StyledButton = styled.button`
@@ -67,7 +68,8 @@ export default function Profile({ User }) {
                 </Box>
             </div>
             <Switch>
-                <Route path="/profile/organizing"> <Organizing User={User} /> </Route>
+                <Route path="/profile/organizing/:id"> <EditPotluck User={User} /> </Route>
+                <Route exact path="/profile/organizing"> <Organizing User={User} /> </Route>
                 <Route path="/profile/attending"> <AttendingThesePotLucks User={User} /></Route>
             </Switch>
         </div>

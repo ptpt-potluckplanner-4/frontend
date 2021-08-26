@@ -115,8 +115,10 @@ export default function PotLuckDetails({ potLuck }) {
             <StyledP><StyledSpan>Planned By:</StyledSpan> {organizer}</StyledP>
             <Link style={{ textDecoration: "none" }} to={`/potlucklist/${potLuck.potluck_id}`}>
               <StyledButton style={ToggleAttendButton()}>Attend</StyledButton>
-              <StyledButton style={ToggleEditButton()}>Edit</StyledButton>
               <StyledButton style={ToggleViewButton()}>View</StyledButton>
+            </Link>
+            <Link style={{ textDecoration: "none" }} to={`/profile/organizing/${potLuck.potluck_id}`}>
+              <StyledButton style={ToggleEditButton()}>Edit</StyledButton>
             </Link>
           </StyledDetailsDiv>
         </div>
