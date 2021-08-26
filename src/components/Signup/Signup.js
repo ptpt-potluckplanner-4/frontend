@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import * as yup from 'yup';
 import signUpFormSchema from '../../validation/signUpFormSchema';
+import "../../index.css";
 
 //MATERIAL UI COPYRIGHT CODE
 function Copyright() {
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+
 	},
 }));
 
@@ -224,7 +226,7 @@ const Signup = () => {
 						</Grid>
 
 					</Grid>
-					<div className='signUpErrors'>
+					<div className='formErrors'>
 						{/* RENDER THE VALIDATION ERRORS HERE */}
 						<div>{signUpformErrors.firstname}</div>
 						<div>{signUpformErrors.lastname}</div>

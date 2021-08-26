@@ -9,6 +9,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 
 export default function PotLuckList({ potLuck }) {
@@ -38,9 +41,6 @@ export default function PotLuckList({ potLuck }) {
                 {potLuckList.map(potLuck => (
                     <div>
                         <PotLuckDetails potLuck={potLuck} />
-                        <Link to={`/potlucklist/${potLuck.potluck_id}`}>
-                            <Button>Attend</Button>
-                        </Link>
                     </div>
 
                 ))}
@@ -48,3 +48,6 @@ export default function PotLuckList({ potLuck }) {
         </div>
     )
 }
+
+
+

@@ -29,7 +29,7 @@ const StyledButton = styled.button`
   /* Adapt the colors based on primary prop */
   background: ${props => props.primary ? "#E7E0C9" : "#C1CFC0"};
   
-  color: black;
+color: black;
  font-size: 1em;
   margin: 1em;
   padding: 0.75em 1.25em;

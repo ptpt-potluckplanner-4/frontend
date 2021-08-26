@@ -19,3 +19,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.formErrors {
+  color: red;
+  font-size: 0.7rem;
+  padding: 4px;
+}
