@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import EditPotLuckDetails from "./EditPotluckDetails";
+
 
 export default function EditPotluck({ User }) {
     const [potluckInfo, setPotluckInfo] = useState();
@@ -18,6 +20,10 @@ export default function EditPotluck({ User }) {
             });
     }, [params]);
 
+
+	if (!potluckInfo) {
+		return <div>Loading Potluck...</div>;
+	}
     // use axios to get potluck food if the other info doesn't have it
 
 
@@ -30,6 +36,10 @@ export default function EditPotluck({ User }) {
         <h2 style={{ boxShadow: "0px 5px 5px grey", width: "50%", margin: "50px auto" }}>
             Edit This Potluck
         </h2>
+        <div className="">
+			{/* <NavBar></NavBar> */}
+			<EditPotLuckDetails potLuck={potluckInfo}></EditPotLuckDetails>
+		</div>
     </div>)
 }
 
