@@ -106,7 +106,7 @@ const initialPotluckState = {
 	const [createPotluckErrors, setCreatePotluckErrors] = useState(
 		initialCreatePotluckErrors);
 	const [createDisabled, setCreateDisabled] = useState(initialCreateButtonDisabled) // boolean;
-	const [potluckId, setPotluckId] = useState(0);
+	const [potluckId, setPotluckId] = useState(potLuck?.potluck_id);
 	//const [potluckData, setPotluckData] = useState({});
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
@@ -193,7 +193,6 @@ useEffect(() => {
 	};
 
 	const foodSubmit = (e) => {
-    console.log(potluckId)
 		axios
 			.post(
 				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/`,
@@ -203,7 +202,6 @@ useEffect(() => {
 			)
 			.then((res) => {
 				setFoodItemArray(res.data);
-        console.log(potluckId)
 
 			})
 			.catch((err) => {
