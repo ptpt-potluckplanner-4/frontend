@@ -17,7 +17,7 @@ import "../../index.css";
 export default function PotLuckList({ potLuck }) {
     const [potLuckList, setPotLuckList] = useState([]);
 
-
+    // recieve potluck list details
     useEffect(() => {
         const getPotluckList = () => {
             axios
@@ -31,6 +31,9 @@ export default function PotLuckList({ potLuck }) {
         }
         getPotluckList();
     }, []); // empty array makes this only run once
+
+
+
 
 
     return (
