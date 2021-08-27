@@ -187,12 +187,12 @@ export default function CreatePotluckForm() {
 		}
 	};
 
-	// submit finalized potluck -- Done redirects page to potluckList
+	// submit finalized potluck -- Done redirects page to profile
 	let history = useHistory();
 	console.log(history, "history");
 	const DoneAndRouteChange = () => {
 		// redirects page to profile
-		let path = `/potlucklist`;
+		let path = `/profile`;
 		history.push(path);
 	};
 
@@ -356,7 +356,7 @@ export default function CreatePotluckForm() {
 						Add food
 					</Button>
 
-					{/* NOT SURE WHICH IS REAL */}
+					{/* IM NOT SURE WHICH ONE IS THE FINAL GUYS JUST DELETE OR WHATEVS */}
 					<Link href="/profile/organizing" variant="body2">
 						<Button
 							style={{ margin: "35px 0px 0px 0px" }}
@@ -369,8 +369,9 @@ export default function CreatePotluckForm() {
 						<label>
 							<h5>Click Done When Finished Adding Food:</h5>
 						</label>
-						{/* onclick should redirect user to profile or potluck list?? */}{" "}
+						{/* onclick should redirect user to profile or potluck list?? */}
 					</Link>
+
 					<Button
 						type="submit"
 						className={classes.submit}
