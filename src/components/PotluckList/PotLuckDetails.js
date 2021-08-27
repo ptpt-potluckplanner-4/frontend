@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory, } from "react-router-dom";
-import { Button } from "@material-ui/core";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledSection = styled.section`
   ${'' /* background-color: papayawhip; */}
@@ -82,10 +82,10 @@ color: black;
 
 
 export default function PotLuckDetails({ potLuck }) {
-  const { title, date, time, location, organizer, potluck_id } = potLuck;
-
+  const { title, date, time, location, organizer, } = potLuck;
   const history = useHistory();
   const paramsLocation = history.location.pathname;
+  const [guestsComing, setGuestsComing] = useState([]);
 
   // Toggles buttons depending on page
   function ToggleAttendButton() {
@@ -99,6 +99,28 @@ export default function PotLuckDetails({ potLuck }) {
   function ToggleViewButton() {
     if (paramsLocation === "/profile/attending") { return { display: "block" } } else { return { display: "none" } }
   }
+
+  //[PUT] https://potluck-planner-04.herokuapp.com/potlucks/:id/foods/:potluckFood_id
+
+  // recieve potluck list details
+  const attendPotluck = () => {
+    axios
+      .post('https://potluck-planner-04.herokuapp.com/potlucks/1/guests') // replace 1 with user id
+      .then(res => {
+        setGuestsComing(res.data);
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error('Server Error', err);
+      })
+      .finally(
+        console.log(guestsComing), "guestsComing"
+      )
+  }
+
+
+
+
 
   // Details could include the list functionality or we add another component
   return (
@@ -114,7 +136,7 @@ export default function PotLuckDetails({ potLuck }) {
             <StyledP><StyledSpan>Where:</StyledSpan> {location}</StyledP>
             <StyledP><StyledSpan>Planned By:</StyledSpan> {organizer}</StyledP>
             <Link style={{ textDecoration: "none" }} to={`/potlucklist/${potLuck.potluck_id}`}>
-              <StyledButton style={ToggleAttendButton()}>Attend</StyledButton>
+              <StyledButton onClick={attendPotluck()} style={ToggleAttendButton()}>Attend</StyledButton>
               <StyledButton style={ToggleViewButton()}>View</StyledButton>
             </Link>
             <Link style={{ textDecoration: "none" }} to={`/profile/organizing/${potLuck.potluck_id}`}>
@@ -128,4 +150,3 @@ export default function PotLuckDetails({ potLuck }) {
   );
 }
 
-// add delete endpoint

@@ -20,7 +20,8 @@ function App() {
 				<Route path="/createpotluck"> <CreatePotluck User={User} /></Route>
 				<Route exact path="/potlucklist" > <PotLuckList User={User} /></Route>
 				<Route path="/potlucklist/:id"> <Potluck User={User} /></Route>
-				<Route exact path="/" ><Login setUser={setUser} /></Route>
+				<Route path="/login" ><Login setUser={setUser} /></Route>
+				<Route exact path="/" > <PotLuckList User={User} /></Route>
 			</Switch>
 		</div>
 	);

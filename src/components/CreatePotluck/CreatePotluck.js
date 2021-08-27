@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // styled components
-
 const StyledLI = styled.li`
   text-decoration: none;
   list-style-type: none;

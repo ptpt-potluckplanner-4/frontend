@@ -1,12 +1,8 @@
-//Mark does this
-// logout - profile - CREATE POTLUCK.JS - ATTEND POTLUCK - 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
-
-
-
-
+// styled Components
 const StyledNav = styled.nav`
   ${'' /* background-color: papayawhip; */}
   background-color: #6B7AA1; 
@@ -74,15 +70,23 @@ const StyledP = styled.p`
 
 
 export default function NavBar() {
+  const [logButton, setLogButton] = useState(false);
+
+  //USER LOGGED IN???????
+  // setLogButton()
 
   return (<nav>
     {/* onResize={(window.outerWidth > 729) ? { display: "block" } : { display: "none" } */}
     <StyledNav className='navBarLinks'>
       <StyledH1 className='mainHeader'>POTLUCK PLANNER</StyledH1>
-      <Link style={{ textDecoration: 'none' }} to='/profile'><StyledP>Profile</StyledP></Link>
+      <Link style={{ textDecoration: 'none' }} to='/profile'><StyledP>{logButton === false ? "" : "Profile"}</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/createpotluck"><StyledP>Create a Potluck</StyledP></Link>
       <Link style={{ textDecoration: 'none' }} to="/potlucklist"><StyledP>Join a Potluck</StyledP></Link>
-      <Link style={{ textDecoration: 'none' }} to="/"><StyledP ><span style={{ border: "1.75px solid black", padding: "5px", boxShadow: "0px 2px 2px black", }} >LogOut</span></StyledP></Link>
+      <Link style={{ textDecoration: 'none' }} to="/login"><StyledP >
+        <span style={{ border: "1.75px solid black", padding: "5px", boxShadow: "0px 2px 2px black", }} >
+          {logButton === false ? "LogIn" : "Logout"}
+        </span>
+      </StyledP></Link>
     </StyledNav>
 
     {/* <StyledNavMObile className='navBarLinks' style={(window.outerWidth > 729) ? { display: "none" } : { display: "block" }}>
