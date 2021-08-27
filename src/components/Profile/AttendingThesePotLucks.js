@@ -1,46 +1,54 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PotLuckDetails from "../PotluckList/PotLuckDetails";
 
 export default function AttendingThesePotlucks({ User }) {
-    const [attendingThesePotlucks, setAttendingThesePotlucks] = useState([]);
+	const [attendingThesePotlucks, setAttendingThesePotlucks] = useState([]);
 
+	let id = 1; // change this to the User's id once log in is set up
 
-    let id = 1; // change this to the User's id once log in is set up
+	// axios get request to set attendingThesePotlucks state
+	useEffect(() => {
+		const getGuestListForThisPotluck = () => {
+			axios
+				.get(
+					`https://potluck-planner-04.herokuapp.com/users/${id}/joined-potlucks`,
+				) // Endpoint to get all guests coming to a certain potluck
+				.then((res) => {
+					setAttendingThesePotlucks(res.data);
+				})
+				.catch((err) => {
+					console.error("Server Error", err);
+				});
+		};
+		getGuestListForThisPotluck();
+	}, [id]); // empty array makes this only run once
 
-    // axios get request to set attendingThesePotlucks state
-    useEffect(() => {
-        const getGuestListForThisPotluck = () => {
-            axios
-                .get(`https://potluck-planner-04.herokuapp.com/users/${id}/joined-potlucks`) // Endpoint to get all guests coming to a certain potluck
-                .then(res => {
-                    setAttendingThesePotlucks(res.data);
-                })
-                .catch(err => {
-                    console.error('Server Error', err);
-                });
-        }
-        getGuestListForThisPotluck();
+	// change Michael Scott to User once endpoints are built out for the User
+	return (
+		<div>
+			<h2
+				style={{
+					boxShadow: "0px 5px 5px grey",
+					width: "50%",
+					margin: "50px auto",
+				}}
+			>
+				Potluck's {User} is Attending
+			</h2>
 
-    }, [id]); // empty array makes this only run once
-
-
-    // change Michael Scott to User once endpoints are built out for the User
-    return (
-        <div>
-            <h2 style={{ boxShadow: "0px 5px 5px grey", width: "50%", margin: "50px auto" }}>
-                Potluck's {User} is Attending
-            </h2>
-
-            <div>
-                {attendingThesePotlucks.map(eachPreAttendedPotluck => {
-                    return (
-                        <PotLuckDetails potLuck={eachPreAttendedPotluck} ></PotLuckDetails>
-                    )
-                })}
-            </div>
-        </div>
-    )
+			<div>
+				{attendingThesePotlucks.map((eachPreAttendedPotluck, i) => {
+					return (
+						<PotLuckDetails
+							key={i}
+							potLuck={eachPreAttendedPotluck}
+						></PotLuckDetails>
+					);
+				})}
+			</div>
+		</div>
+	);
 }
 
 // get all potlucks joined by user

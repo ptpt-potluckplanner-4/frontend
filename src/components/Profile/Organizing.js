@@ -41,9 +41,9 @@ export default function Organizing({ User }) {
 				Potluck {User} Is Organizing
 			</h2>
 			<div className="">
-				{potLuckListUserIsOrganizing.map((eachpotLuck) => (
+				{potLuckListUserIsOrganizing.map((eachpotLuck, i) => (
 					<div>
-						<PotLuckDetails potLuck={eachpotLuck} />
+						<PotLuckDetails key={i} potLuck={eachpotLuck} />
 					</div>
 				))}
 			</div>
