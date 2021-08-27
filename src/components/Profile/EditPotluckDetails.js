@@ -94,8 +94,11 @@ const initialPotluckState = {
 	title: potLuck.title,
 	date: potLuck.date,
 	time: potLuck.time,
-	location: potLuck.time,
+	location: potLuck.location,
 };
+
+
+
 
 	const [potluckFormValues, setPotluckFormValues] = useState(initialPotluckState);
 	const [foodValue, setFoodValue] = useState(initialFoodValue);
@@ -103,18 +106,10 @@ const initialPotluckState = {
 	const [createPotluckErrors, setCreatePotluckErrors] = useState(
 		initialCreatePotluckErrors);
 	const [createDisabled, setCreateDisabled] = useState(initialCreateButtonDisabled) // boolean;
-	const [potluckId, setPotluckId] = useState(0);
+	const [potluckId, setPotluckId] = useState(potLuck?.potluck_id);
 	//const [potluckData, setPotluckData] = useState({});
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
-
-//update potluck values
-const updatedPotluck = {potluckFormValues}
-
-
-const updatePotluck = (potluckId, updtatedPotluck) => {
-  setPotluckFormValues(potluckFormValues.map((potLuck) => potLuck.id === potluckId ? updatedPotluck : potLuck))
-}
 
 
 	//ONCHANGE EVENT HANDLER - For each input
@@ -144,6 +139,23 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 	}
 
 
+useEffect(() => {
+		axios
+			.get(
+				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/`,
+				{
+					food_name: foodValue.food_name,
+				},
+			)
+			.then((res) => {
+				setFoodItemArray(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+});
+
+
 	//ENABLE BUTTON WHEN NO ERRORS EXIST
 	useEffect(() => {
 
@@ -155,14 +167,9 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 			})
 	}, [potluckFormValues])
 
-	// submit handler for Creating potluck
+	// submit handler for updating potluck
 	const handleSubmit = (e) => {
-    updatePotluck(potluckId, updatedPotluck)
-
 		e.preventDefault();
-
-
-
 		// send to database via axios
 		Axios.put(`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId} `, {
 			title: potluckFormValues.title,
@@ -188,20 +195,21 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 	const foodSubmit = (e) => {
 		axios
 			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
+				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/`,
 				{
 					food_name: foodValue.food_name,
 				},
 			)
 			.then((res) => {
 				setFoodItemArray(res.data);
+
 			})
 			.catch((err) => {
 				console.log(err);
 			})
 			.finally(() => {
 				setFoodValue(initialFoodValue);
-			})
+			});
 	};
 
   // Details could include the list functionality or we add another component
@@ -280,14 +288,13 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 							</div>
 
 							<Button
-								type="submit"
-								value="SUBMIT"
+								value="EDIT"
 								variant="contained"
 								color="primary"
 								disabled={createDisabled}
 								className={classes.submit}
 								fullWidth
-
+                onClick={handleSubmit}
 							>
 								Edit Potluck
 							</Button>
@@ -302,12 +309,33 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 				{/* foods */}
 				<div>
 					<StyledUL>
-						<header><h2> Foods of {potluckFormValues.title} </h2></header>
+          <header>
+							<h2> Foods to bring for {potluckFormValues.title} </h2>
+						</header>
 
 						{foodItemArray.map((eachFoodItem) => {
+							const foodDelete = (e) => {
+								axios
+									.delete(
+										`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/${eachFoodItem.potluckFood_id}`,
+									)
+									.then((res) => {
+										setFoodItemArray(res.data);
+									})
+									.catch((err) => {
+										console.log(err);
+									})
+									.finally(() => {
+										setFoodValue(initialFoodValue);
+									});
+							};
+
 							return (
 								<StyledLI>
-									{eachFoodItem.food_name} <button>Delete</button>
+									{eachFoodItem.food_name}
+									<button type="delete" onClick={foodDelete}>
+										Delete
+									</button>
 								</StyledLI>
 							);
 						})}
@@ -331,7 +359,6 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 						}
 						value={foodValue.food_name}
 					/>
-
 					<Button
 						type="submit"
 						variant="contained"

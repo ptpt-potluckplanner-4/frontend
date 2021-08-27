@@ -301,6 +301,22 @@ export default function CreatePotluckForm() {
 						</header>
 
 						{foodItemArray.map((eachFoodItem) => {
+							const foodDelete = (e) => {
+								axios
+									.delete(
+										`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/${eachFoodItem.potluckFood_id}`,
+									)
+									.then((res) => {
+										setFoodItemArray(res.data);
+									})
+									.catch((err) => {
+										console.log(err);
+									})
+									.finally(() => {
+										setFoodValue(initialFoodValue);
+									});
+							};
+
 							return (
 								<StyledLI>
 									{eachFoodItem.food_name}
