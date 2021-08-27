@@ -1,23 +1,16 @@
-// mark makes this
-
-// grab from dummy object and map array of potlucks in card like manner
-// link each card to 
-
 import NavBar from "../NavBar/NavBar"
 import PotLuckDetails from "../PotluckList/PotLuckDetails"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
 import "../../index.css";
 
 
 
-export default function PotLuckList({ potLuck }) {
+export default function PotLuckList({ User }) {
     const [potLuckList, setPotLuckList] = useState([]);
+    console.log(User, "user props through potlucklist");
 
-
+    // recieve potluck list details
     useEffect(() => {
         const getPotluckList = () => {
             axios

@@ -3,6 +3,7 @@
 // The initial object that the backend expects will have
 import NavBar from "../NavBar/NavBar";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // styled components
-
 const StyledLI = styled.li`
   text-decoration: none;
   list-style-type: none;
@@ -163,24 +163,37 @@ export default function CreatePotluckForm() {
 			});
 	};
 
+	// food submit for eaach item
 	const foodSubmit = (e) => {
-		axios
-			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/`,
-				{
-					food_name: foodValue.food_name,
-				},
-			)
-			.then((res) => {
-				setFoodItemArray(res.data);
-				console.log(potluckId)
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setFoodValue(initialFoodValue);
-			});
+		if (foodValue === initialFoodValue) {
+			alert("Please type in a food or item first before trying to add.");
+		} else {
+			axios
+				.post(
+					`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
+					{
+						food_name: foodValue.food_name,
+					},
+				)
+				.then((res) => {
+					setFoodItemArray(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+				.finally(() => {
+					setFoodValue(initialFoodValue);
+				});
+		}
+	};
+
+	// submit finalized potluck -- Done redirects page to potluckList
+	let history = useHistory();
+	console.log(history, "history");
+	const DoneAndRouteChange = () => {
+		// redirects page to profile
+		let path = `/potlucklist`;
+		history.push(path);
 	};
 
 	return (
@@ -343,6 +356,7 @@ export default function CreatePotluckForm() {
 						Add food
 					</Button>
 
+					{/* NOT SURE WHICH IS REAL */}
 					<Link href="/profile/organizing" variant="body2">
 						<Button
 							style={{ margin: "35px 0px 0px 0px" }}
@@ -357,6 +371,21 @@ export default function CreatePotluckForm() {
 						</label>
 						{/* onclick should redirect user to profile or potluck list?? */}{" "}
 					</Link>
+					<Button
+						type="submit"
+						className={classes.submit}
+						onClick={DoneAndRouteChange}
+						style={{ margin: "35px 0px 0px 0px" }}
+						variant="contained"
+						color="secondary"
+						fullWidth
+					>
+						Done
+					</Button>
+					<label>
+						<h5>Click Done When Finished Adding Food.</h5>
+					</label>
+					{/* onclick should redirect user to profile or potluck list?? */}
 				</Container>
 			</div>
 		</div>

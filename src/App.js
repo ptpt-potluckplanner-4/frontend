@@ -12,20 +12,17 @@ import "./index.css";
 
 function App() {
 	const [User, setUser] = useState('User'); // change this to recieve user in backend
-
-
 	return (
 		<div className="App">
 			<Switch>
-
 				<Route path="/signup"> <Signup setUser={setUser} /></Route>
 				<Route path="/profile"> <Profile User={User} /> </Route>
 				<Route path="/createpotluck"> <CreatePotluck User={User} /></Route>
 				<Route exact path="/potlucklist" > <PotLuckList User={User} /></Route>
 				<Route path="/potlucklist/:id"> <Potluck User={User} /></Route>
-				<Route exact path="/" ><Login setUser={setUser} /></Route>
+				<Route path="/login" ><Login setUser={setUser} /></Route>
+				<Route exact path="/" > <PotLuckList User={User} /></Route>
 			</Switch>
-
 		</div>
 	);
 }

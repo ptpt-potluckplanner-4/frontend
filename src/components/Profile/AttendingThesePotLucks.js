@@ -6,7 +6,7 @@ export default function AttendingThesePotlucks({ User }) {
     const [attendingThesePotlucks, setAttendingThesePotlucks] = useState([]);
 
 
-    let id = 1;
+    let id = 1; // change this to the User's id once log in is set up
 
     // axios get request to set attendingThesePotlucks state
     useEffect(() => {
@@ -35,10 +35,6 @@ export default function AttendingThesePotlucks({ User }) {
             <div>
                 {attendingThesePotlucks.map(eachPreAttendedPotluck => {
                     return (
-                        // might need to get an axios and exchange organizer id
-                        // with an actual name associated with organizer
-
-
                         <PotLuckDetails potLuck={eachPreAttendedPotluck} ></PotLuckDetails>
                     )
                 })}
@@ -46,7 +42,6 @@ export default function AttendingThesePotlucks({ User }) {
         </div>
     )
 }
-
 
 // get all potlucks joined by user
 // [GET] https://potluck-planner-04.herokuapp.com/users/:id/joined-potlucks
