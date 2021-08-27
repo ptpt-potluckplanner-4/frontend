@@ -29,7 +29,7 @@ export default function PotLuckFoods({ pl, User }) {
 				});
 		};
 		getPotluckFoods();
-	}, [pl.potluck_id]); // empty array makes this only run once
+	}, []); // empty array makes this only run once
 
 	console.log(User, "potluckfoods.js");
 
@@ -49,6 +49,7 @@ export default function PotLuckFoods({ pl, User }) {
 							key={eachFoodItem.potluckFood_id}
 							FoodItem={eachFoodItem}
 							User={User}
+							potluckId={pl.potluck_id}
 						></EachFoodItem>
 					</div>
 				);

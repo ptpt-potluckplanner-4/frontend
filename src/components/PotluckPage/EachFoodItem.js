@@ -77,7 +77,9 @@ const StyledButton = styled.button`
 	width: 60px;
 `;
 
-const EachFoodItem = ({ FoodItem, User }) => {
+const EachFoodItem = (props) => {
+	const { FoodItem, User, potluckId } = props;
+
 	const [checked, setChecked] = useState({ boolean: false, contributor: "" });
 	const [committed, setCommitted] = useState(false);
 	const [contributing, setContributing] = useState();
@@ -102,6 +104,7 @@ const EachFoodItem = ({ FoodItem, User }) => {
 			.put(
 				`https://potluck-planner-04.herokuapp.com/potlucks/1/foods/${FoodItem.potluckFood_id}`,
 			) // replace 1 with state.user_id
+			//this is hansel, I think the 1 us a potluckId
 			.then((res) => {
 				setContributing(res.data);
 				setCommitted(true);
