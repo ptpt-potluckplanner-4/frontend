@@ -11,7 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("./images/whitePaper.jpeg");
   background-color: #cccccc;
-  /* background-size: cover;
+  /* background-size: contain;
   background-repeat: repeat; */
 }
 

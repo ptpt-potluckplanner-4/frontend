@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory, } from "react-router-dom";
-import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
 const StyledSection = styled.section`
@@ -82,10 +81,10 @@ color: black;
 
 
 export default function PotLuckDetails({ potLuck }) {
-  const { title, date, time, location, organizer, potluck_id } = potLuck;
-
+  const { title, date, time, location, organizer, } = potLuck;
   const history = useHistory();
   const paramsLocation = history.location.pathname;
+
 
   // Toggles buttons depending on page
   function ToggleAttendButton() {
@@ -99,6 +98,8 @@ export default function PotLuckDetails({ potLuck }) {
   function ToggleViewButton() {
     if (paramsLocation === "/profile/attending") { return { display: "block" } } else { return { display: "none" } }
   }
+
+
 
   // Details could include the list functionality or we add another component
   return (
@@ -128,4 +129,3 @@ export default function PotLuckDetails({ potLuck }) {
   );
 }
 
-// add delete endpoint

@@ -1,11 +1,3 @@
-// Chase builds this
-
-// basically a form that creates a todo list and have a create button
-// Create Date, time, and location of event
-// Create edit button to adjust time, location, date
-// once created via submit button click posts to potluckList.js
-
-// The initial object that the backend expects will have
 import NavBar from "../NavBar/NavBar";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -48,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 // styled components
-
 const StyledLI = styled.li`
   text-decoration: none;
   list-style-type: none;
@@ -119,8 +110,6 @@ export default function CreatePotluckForm() {
 		//pull out the name and value of the event target
 		const { name, value } = e.target;
 
-
-
 		//check for errors via yup
 		yup.reach(createPotluckFormSchema, name)
 			.validate(value)
@@ -155,7 +144,6 @@ export default function CreatePotluckForm() {
 	// submit handler for Creating potluck
 	const submitPotluck = (e) => {
 		e.preventDefault();
-
 
 
 		// send to database via axios
@@ -205,16 +193,13 @@ export default function CreatePotluckForm() {
 		}
 	};
 
-
-
-	// submit finalized potluck -- Done redirects page to profile
+	// submit finalized potluck -- Done redirects page to potluckList
 	let history = useHistory();
 	console.log(history, "history");
 	const DoneAndRouteChange = () => {
 		// redirects page to profile	
-		let path = `/profile`;
+		let path = `/potlucklist`;
 		history.push(path);
-
 	}
 
 	return (
