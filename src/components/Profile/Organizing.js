@@ -3,7 +3,7 @@ import axios from "axios";
 import PotLuckDetails from "../PotluckList/PotLuckDetails";
 
 export default function Organizing({ User }) {
-    const [potLuckListUserIsAttending, setPotLuckListUserIsAttending] = useState([]);
+    const [potLuckListUserIsOrganizing, setPotLuckListUserIsOrganizing] = useState([]);
 
 
     // get all potlucks organized by user
@@ -19,7 +19,7 @@ export default function Organizing({ User }) {
                 .then(res => {
                     const allPotlucks = res.data;
                     const UserIsOrganizing = allPotlucks.filter(potluck => { return potluck.organizer === "Michael Scott" });
-                    setPotLuckListUserIsAttending(UserIsOrganizing);
+                    setPotLuckListUserIsOrganizing(UserIsOrganizing);
                 })
                 .catch(err => {
                     console.error('Server Error', err);
@@ -36,7 +36,7 @@ export default function Organizing({ User }) {
             Potluck {User} Is Organizing
         </h2>
         <div className="">
-            {potLuckListUserIsAttending.map(eachpotLuck => (
+            {potLuckListUserIsOrganizing.map(eachpotLuck => (
                 <div>
                     <PotLuckDetails potLuck={eachpotLuck} />
                 </div>
