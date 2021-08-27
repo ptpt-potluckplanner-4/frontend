@@ -8,6 +8,7 @@
 // The initial object that the backend expects will have
 import NavBar from "../NavBar/NavBar";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
@@ -179,24 +180,42 @@ export default function CreatePotluckForm() {
 
 	};
 
+	// food submit for eaach item
 	const foodSubmit = (e) => {
-		axios
-			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
-				{
-					food_name: foodValue.food_name,
-				},
-			)
-			.then((res) => {
-				setFoodItemArray(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setFoodValue(initialFoodValue);
-			})
+		if (foodValue === initialFoodValue) {
+			alert("Please type in a food or item first before trying to add.")
+		} else {
+
+			axios
+				.post(
+					`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
+					{
+						food_name: foodValue.food_name,
+					},
+				)
+				.then((res) => {
+					setFoodItemArray(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+				.finally(() => {
+					setFoodValue(initialFoodValue);
+				})
+		}
 	};
+
+
+
+	// submit finalized potluck -- Done redirects page to profile
+	let history = useHistory();
+	console.log(history, "history");
+	const DoneAndRouteChange = () => {
+		// redirects page to profile	
+		let path = `/profile`;
+		history.push(path);
+
+	}
 
 	return (
 		<div>
@@ -341,8 +360,8 @@ export default function CreatePotluckForm() {
 						Add food
 					</Button>
 
-					<Button style={{ margin: "35px 0px 0px 0px" }} variant="contained" color="secondary" fullWidth>Done</Button>
-					<label><h5>Click Done When Finished Adding Food:</h5></label>
+					<Button type="submit" className={classes.submit} onClick={DoneAndRouteChange} style={{ margin: "35px 0px 0px 0px" }} variant="contained" color="secondary" fullWidth>Done</Button>
+					<label><h5>Click Done When Finished Adding Food.</h5></label>
 					{/* onclick should redirect user to profile or potluck list?? */}
 				</Container>
 
