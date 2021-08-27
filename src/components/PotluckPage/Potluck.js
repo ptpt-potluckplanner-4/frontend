@@ -37,7 +37,7 @@ export default function PotLuck() {
 		<div className="">
 			<NavBar></NavBar>
 			<PotLuckDetails potLuck={potLuck}></PotLuckDetails>
-			<PotLuckFoods potLuck={potLuck}/>
+			<PotLuckFoods pl={potLuck} />
 		</div>
 	);
 }
