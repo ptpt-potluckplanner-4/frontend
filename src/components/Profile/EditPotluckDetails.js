@@ -1,8 +1,8 @@
-//DELETE IS NOT FULLY FUNCTIONABLE, NEEDS FIXING PLS!!!
+//POTLUCK DATA DOES NOT ALWAYS FORMAT CORRECTLY INTO INPUTS. AND IT DOES NOT UPDATE WHEN SUBMITTED
+//STILL NEED TO FIGURE OUT HOW TO EDIT FOOD DATA.
 
 
-// The initial object that the backend expects will have
-import NavBar from "../NavBar/NavBar";
+import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Button from "@material-ui/core/Button";
@@ -13,10 +13,9 @@ import "../../index.css";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
-import { Typography } from "@material-ui/core";
-import Link from '@material-ui/core/Link';
 import PotLuckDetails from "../PotluckList/PotLuckDetails";
-import styled from "styled-components";
+import Link from '@material-ui/core/Link';
+
 
 // MATERIAL UI STYLES
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 }));
-
-
 // styled components
 
 const StyledLI = styled.li`
@@ -69,15 +66,6 @@ const StyledUL = styled.ul`
   box-sizing: border-box;
 `;
 
-
-// initial potluck state
-const initialPotluckState = {
-	title: "",
-	date: "",
-	time: "",
-	location: "",
-};
-
 //initial food state
 const initialFoodValue = { food_name: "" };
 
@@ -93,22 +81,41 @@ const initialCreatePotluckErrors = {
 
 const initialCreateButtonDisabled = true;
 
-export default function CreatePotluckForm() {
-	// allows you to use styles from Material UI
-	const classes = useStyles();
+
+
+export default function EditPotLuckDetails({potLuck}) {
+  const classes = useStyles();
 
 	// state for potluckFormValue ---potluckFormValue === form values
+
+
+// initial editPotluck state
+const initialPotluckState = {
+	title: potLuck.title,
+	date: potLuck.date,
+	time: potLuck.time,
+	location: potLuck.time,
+};
+
 	const [potluckFormValues, setPotluckFormValues] = useState(initialPotluckState);
 	const [foodValue, setFoodValue] = useState(initialFoodValue);
 	const [foodItemArray, setFoodItemArray] = useState([]);
 	const [createPotluckErrors, setCreatePotluckErrors] = useState(
 		initialCreatePotluckErrors);
 	const [createDisabled, setCreateDisabled] = useState(initialCreateButtonDisabled) // boolean;
-
 	const [potluckId, setPotluckId] = useState(0);
 	//const [potluckData, setPotluckData] = useState({});
 	const [addFoodDiv, setAddFoodDiv] = useState("none");
 	const [createPotluckDiv, setCreatePotluckDiv] = useState("block");
+
+//update potluck values
+const updatedPotluck = {potluckFormValues}
+
+
+const updatePotluck = (potluckId, updtatedPotluck) => {
+  setPotluckFormValues(potluckFormValues.map((potLuck) => potLuck.id === potluckId ? updatedPotluck : potLuck))
+}
+
 
 	//ONCHANGE EVENT HANDLER - For each input
 	const onChange = e => {
@@ -149,13 +156,15 @@ export default function CreatePotluckForm() {
 	}, [potluckFormValues])
 
 	// submit handler for Creating potluck
-	const submitPotluck = (e) => {
+	const handleSubmit = (e) => {
+    updatePotluck(potluckId, updatedPotluck)
+
 		e.preventDefault();
 
 
 
 		// send to database via axios
-		Axios.post("https://potluck-planner-04.herokuapp.com/potlucks/create", {
+		Axios.put(`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId} `, {
 			title: potluckFormValues.title,
 			date: potluckFormValues.date,
 			time: potluckFormValues.time,
@@ -179,7 +188,7 @@ export default function CreatePotluckForm() {
 	const foodSubmit = (e) => {
 		axios
 			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/`,
+				`https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods`,
 				{
 					food_name: foodValue.food_name,
 				},
@@ -195,40 +204,15 @@ export default function CreatePotluckForm() {
 			})
 	};
 
-	const foodDelete = (e) => {
-		axios
-			.delete(
-				// `https://potluck-planner-04.herokuapp.com/potlucks/${potluckId}/foods/${potluckFood_id}`,
-				{
-					food_name: foodValue.food_name,
-				},
-			)
-			.then((res) => {
-				setFoodItemArray(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setFoodValue(initialFoodValue);
-			})
-	};
-
-	return (
-		<div>
-			<NavBar />
-			<form className={classes.form} onSubmit={submitPotluck}>
+  // Details could include the list functionality or we add another component
+  return (
+    <div className="">
+	<div>
+			<form className={classes.form} onSubmit={handleSubmit}>
 				<div className="form-inner">
 					<Container component="main" maxWidth="xs">
 						{/* {(error != "") ? (<div className='error'>{error}</div>) : ''} */}
 						<div className={classes.paper} style={{ display: `${createPotluckDiv}` }}>
-
-
-							<Typography component="h2" variant="h4">
-								<h4 style={{ boxShadow: "0px 5px 5px grey" }}>
-									Create a Potluck
-								</h4>
-							</Typography>
 
 							<div className="form-group">
 								<TextField
@@ -240,7 +224,7 @@ export default function CreatePotluckForm() {
 									name="title"
 									id="title"
 									onChange={onChange}
-									value={potluckFormValues.name}
+									value={potluckFormValues.title}
 									className={classes.pageTitle}
 								/>
 							</div>
@@ -303,8 +287,9 @@ export default function CreatePotluckForm() {
 								disabled={createDisabled}
 								className={classes.submit}
 								fullWidth
+
 							>
-								Create Potluck
+								Edit Potluck
 							</Button>
 						</div>
 					</Container>
@@ -317,17 +302,12 @@ export default function CreatePotluckForm() {
 				{/* foods */}
 				<div>
 					<StyledUL>
-						<header><h2> Foods to bring for {potluckFormValues.title} </h2></header>
+						<header><h2> Foods of {potluckFormValues.title} </h2></header>
 
 						{foodItemArray.map((eachFoodItem) => {
 							return (
 								<StyledLI>
-									{eachFoodItem.food_name} 
-									<button 
-									type="delete"
-									onClick={foodDelete}>
-										Delete
-									</button>
+									{eachFoodItem.food_name} <button>Delete</button>
 								</StyledLI>
 							);
 						})}
@@ -351,6 +331,7 @@ export default function CreatePotluckForm() {
 						}
 						value={foodValue.food_name}
 					/>
+
 					<Button
 						type="submit"
 						variant="contained"
@@ -362,13 +343,18 @@ export default function CreatePotluckForm() {
 						Add food
 					</Button>
 
-					<Link href="/profile/organizing" variant="body2">
+<Link href="/profile/organizing" variant="body2">
 					<Button style={{ margin: "35px 0px 0px 0px" }} variant="contained" color="secondary" fullWidth>Done</Button>
 					<label><h5>Click Done When Finished Adding Food:</h5></label>
 					{/* onclick should redirect user to profile or potluck list?? */}                            </Link>
+
+
 				</Container>
 
 			</div>
 		</div>
-	);
+    </div>
+  );
 }
+
+// add delete endpoint
