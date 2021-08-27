@@ -94,7 +94,7 @@ const initialPotluckState = {
 	title: potLuck.title,
 	date: potLuck.date,
 	time: potLuck.time,
-	location: potLuck.time,
+	location: potLuck.location,
 };
 
 	const [potluckFormValues, setPotluckFormValues] = useState(initialPotluckState);
@@ -280,14 +280,13 @@ const updatePotluck = (potluckId, updtatedPotluck) => {
 							</div>
 
 							<Button
-								type="submit"
-								value="SUBMIT"
+								value="EDIT"
 								variant="contained"
 								color="primary"
 								disabled={createDisabled}
 								className={classes.submit}
 								fullWidth
-
+                onClick={handleSubmit}
 							>
 								Edit Potluck
 							</Button>
