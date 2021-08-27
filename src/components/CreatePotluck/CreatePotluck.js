@@ -173,6 +173,7 @@ export default function CreatePotluckForm() {
 			)
 			.then((res) => {
 				setFoodItemArray(res.data);
+				console.log(potluckId)
 			})
 			.catch((err) => {
 				console.log(err);
