@@ -152,14 +152,12 @@ export default function CreatePotluckForm() {
 			organizer: 1, //this should be state.user_id
 		})
 			.then((res) => {
-				console.log(res.data);
 				setPotluckFormValues(res.data);
 				setPotluckId(res.data.potluck_id);
 			})
 			.finally(() => {
 				setCreatePotluckDiv("none");
 				setAddFoodDiv("block");
-				console.log(potluckId);
 			});
 	};
 
@@ -299,7 +297,7 @@ export default function CreatePotluckForm() {
 							<h2> Foods to bring for {potluckFormValues.title} </h2>
 						</header>
 
-						{foodItemArray.map((eachFoodItem) => {
+						{foodItemArray.map((eachFoodItem, i) => {
 							const foodDelete = (e) => {
 								axios
 									.delete(
@@ -308,16 +306,14 @@ export default function CreatePotluckForm() {
 									.then((res) => {
 										setFoodItemArray(res.data);
 									})
-									.catch((err) => {
-										console.log(err);
-									})
 									.finally(() => {
 										setFoodValue(initialFoodValue);
-									});
+									})
+									.catch();
 							};
 
 							return (
-								<StyledLI>
+								<StyledLI key={i}>
 									{eachFoodItem.food_name}
 									<button type="delete" onClick={foodDelete}>
 										Delete

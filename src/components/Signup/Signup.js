@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import * as yup from 'yup';
-import signUpFormSchema from '../../validation/signUpFormSchema';
+import React, { useState, useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import * as yup from "yup";
+import signUpFormSchema from "../../validation/signUpFormSchema";
 import "../../index.css";
 
 //MATERIAL UI COPYRIGHT CODE
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
-			{'Copyright © '}
+			{"Copyright © "}
 			<Link color="inherit" href="/">
 				Potluck Planner
-			</Link>{' '}
+			</Link>{" "}
 			{new Date().getFullYear()}
-			{'.'}
+			{"."}
 		</Typography>
 	);
 }
@@ -30,86 +30,88 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
 	},
 	avatar: {
 		margin: theme.spacing(1),
 		backgroundColor: theme.palette.secondary.main,
 	},
 	form: {
-		width: '100%', // Fix IE 11 issue.
+		width: "100%", // Fix IE 11 issue.
 		marginTop: theme.spacing(3),
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
-
 	},
 }));
 
-
 // INITIAL SIGNUP FORM VALUES
 const initialSignUpFormValues = {
-	firstname: '',
-	lastname: '',
-	username: '',
-	email: '',
-	password: '',
-}
+	firstname: "",
+	lastname: "",
+	username: "",
+	email: "",
+	password: "",
+};
 
 // INITIAL SIGNUP FORM ERRORS
 const initialSignUpFormErrors = {
-	firstname: '',
-	lastname: '',
-	username: '',
-	email: '',
-	password: '',
-}
+	firstname: "",
+	lastname: "",
+	username: "",
+	email: "",
+	password: "",
+};
 
 // DISABLE SUBMIT BUTTON INTIALLY
 const initialSignUpButtonDisabled = true;
 
 const Signup = () => {
-	const [signUpFormValues, setSignUpFormValues] = useState(initialSignUpFormValues);
-	const [signUpformErrors, setSignUpFormErrors] = useState(initialSignUpFormErrors) // object
-	const [signUpDisabled, setSignUpDisabled] = useState(initialSignUpButtonDisabled) // boolean
+	const [signUpFormValues, setSignUpFormValues] = useState(
+		initialSignUpFormValues,
+	);
+	const [signUpformErrors, setSignUpFormErrors] = useState(
+		initialSignUpFormErrors,
+	); // object
+	const [signUpDisabled, setSignUpDisabled] = useState(
+		initialSignUpButtonDisabled,
+	); // boolean
 	const classes = useStyles();
 
-
 	//ONCHANGE EVENT HANDLER - For each input
-	const onChange = e => {
+	const onChange = (e) => {
 		//pull out the name and value of the event target
 		const { name, value } = e.target;
 
 		//check with yup, run form errors
-		yup.reach(signUpFormSchema, name)
+		yup
+			.reach(signUpFormSchema, name)
 			.validate(value)
 			.then(() => {
-				setSignUpFormErrors({ ...signUpformErrors, [name]: "" })
+				setSignUpFormErrors({ ...signUpformErrors, [name]: "" });
 			})
-			.catch(err => {
-				setSignUpFormErrors({ ...signUpformErrors, [name]: err.message })
-			})
+			.catch((err) => {
+				setSignUpFormErrors({ ...signUpformErrors, [name]: err.message });
+			});
 
 		// update just that input change
-		const newFormValues = { ...signUpFormValues, [name]: value }
+		const newFormValues = { ...signUpFormValues, [name]: value };
 		//set newFormValues into state
 		setSignUpFormValues(newFormValues);
-	}
+	};
 
 	//ENABLE BUTTON WHEN NO ERRORS EXIST
 	useEffect(() => {
 		// ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
-		signUpFormSchema.isValid(signUpFormValues)
-			.then(isSchemaValid => {
-				setSignUpDisabled(!isSchemaValid) //disable the submt button if not valid
-			})
-	}, [signUpFormValues])
+		signUpFormSchema.isValid(signUpFormValues).then((isSchemaValid) => {
+			setSignUpDisabled(!isSchemaValid); //disable the submt button if not valid
+		});
+	}, [signUpFormValues]);
 
 	// HANDLE SIGNUP SUBMIT
-	const submitSignUpForm = e => {
-		console.log("signUp form submitted");
+	const submitSignUpForm = (e) => {
 		e.preventDefault();
 
 		const newUser = {
@@ -118,7 +120,7 @@ const Signup = () => {
 			username: signUpFormValues.username.trim(),
 			email: signUpFormValues.email.trim(),
 			password: signUpFormValues.password.trim(),
-		}
+		};
 
 		console.log(newUser);
 		//  post newUser to backend
@@ -133,10 +135,7 @@ const Signup = () => {
 
 		// clear the form at end of submit
 		setSignUpFormValues(initialSignUpFormValues);
-
-	}
-
-
+	};
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -166,7 +165,6 @@ const Signup = () => {
 						<Grid item xs={12} sm={6}>
 							<TextField
 								variant="outlined"
-
 								fullWidth
 								id="lastName"
 								label="Last Name"
@@ -179,7 +177,6 @@ const Signup = () => {
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
-
 								fullWidth
 								id="username"
 								label="User Name"
@@ -192,7 +189,6 @@ const Signup = () => {
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
-
 								fullWidth
 								id="email"
 								label="Email Address"
@@ -206,7 +202,6 @@ const Signup = () => {
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
-
 								fullWidth
 								name="password"
 								label="Password"
@@ -217,9 +212,8 @@ const Signup = () => {
 								onChange={onChange}
 							/>
 						</Grid>
-
 					</Grid>
-					<div className='formErrors'>
+					<div className="formErrors">
 						{/* RENDER THE VALIDATION ERRORS HERE */}
 						<div>{signUpformErrors.firstname}</div>
 						<div>{signUpformErrors.lastname}</div>
@@ -254,6 +248,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
-
