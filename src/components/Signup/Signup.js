@@ -83,6 +83,17 @@ const Signup = () => {
 	const [signUpDisabled, setSignUpDisabled] = useState(initialSignUpButtonDisabled) // boolean
 	const classes = useStyles();
 
+	let createNewId = Math.floor(Math.random() * 1000000);
+	const [storeId, setStoreId] = useState([0]);
+	const [ids, setIds] = useState(createNewId);
+
+	const newIds = () => {
+		storeId.map(i => (createNewId != i) ? console.log(createNewId) : createNewId = Math.floor(Math.random() * 1000000));
+		return setIds(createNewId), setStoreId(oldStore => [...oldStore, createNewId]);
+	}
+	//newIds();
+
+
 
 	//ONCHANGE EVENT HANDLER - For each input
 	const onChange = e => {
@@ -118,6 +129,7 @@ const Signup = () => {
 	const submitSignUpForm = e => {
 		console.log("signUp form submitted");
 		e.preventDefault();
+		newIds();
 
 		const newUser = {
 			firstname: signUpFormValues.firstname.trim(),
@@ -125,6 +137,7 @@ const Signup = () => {
 			username: signUpFormValues.username.trim(),
 			email: signUpFormValues.email.trim(),
 			password: signUpFormValues.password.trim(),
+			user_id: ids,
 		}
 		console.log(newUser);
 		//  post newUser to backend
