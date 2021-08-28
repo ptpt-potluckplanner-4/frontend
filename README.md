@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Potluck Planner 4
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+If you have ever tried to organize a potluck through text messages, online to-do lists or spreadsheets, you'll understand why this app is essential. 
 
-## Available Scripts
+In the world of social gatherings and potlucks the "Potluck Planner" is king. This is your place for all things pot luck.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### What problem does your app solve?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Having potlucks more manageable and organized.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Be as specific as possible; how does your app solve the problem?
 
-### `npm test`
+- Our app helps potluck goers see details of potluck events such as who's coming and what foods to bring Thru our app, hosts can manage the events by sending invitation links to users they'd like to invite and also set foods they'd like them to bring.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### What is the mission statement?
 
-### `npm run build`
+- "An organized potluck is the one worth going."
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### What features are required for your minimum viable product?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. As an `organizer` I can create an upcoming `potluck` and invite my friends to attend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. As an `organizer` I can adjust `date`s, `time`s and `location`s of the potluck
 
-### `npm run eject`
+3. As an `organizer` I can use the list feature in my app to add food `items` that we'd like to see at the potluck
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. As a `guest` to a potluck I want to be able to confirm that I'm going to the upcoming `event`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. As a `guest` I'd like to be able to select which `item`s I'd like to be responsible for bringing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- All of the user stories above should only require a single user type. Users can create "potlucks" and add other users to them.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### What features may you wish to put in a future release?
 
-## Learn More
+- Add a reminders functionality that allows users to link up their upcoming dates to their Google calendar.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Ability to upload multiple photos from the potluck gathering, like a photo gallery for a past event.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### What do the top 3 similar apps do for their users?
 
-### Code Splitting
+- Eventbrite
+- Superplanner
+- Social Tables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Frameworks - Libraries
 
-### Analyzing the Bundle Size
+### What 3rd party frameworks/libraries are you considering using?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Frontend: React, Redux, Material UI, styled-components, Axios, Yup validation
+- Backend: Node, Express, Knex, SQLite3, PostgreSQL
 
-### Making a Progressive Web App
+### Do the APIs you need require you to contact them to gain access?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- No
 
-### Advanced Configuration
+### Are you required to pay to use said API(s)?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- No
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

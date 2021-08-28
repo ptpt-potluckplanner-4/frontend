@@ -5,7 +5,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import PotLuckFoods from "./PotluckFoods";
 
-
 export default function PotLuck({ User }) {
 	const [potLuck, setPotluck] = useState();
 	const params = useParams();
@@ -15,7 +14,6 @@ export default function PotLuck({ User }) {
 			.get(`https://potluck-planner-04.herokuapp.com/potlucks/${params.id}/`)
 			.then((res) => {
 				setPotluck(res.data);
-				console.log(params.id);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -25,7 +23,7 @@ export default function PotLuck({ User }) {
 	if (!potLuck) {
 		return <div>Loading Potlucks...</div>;
 	}
-	console.log(User, "potluck.js")
+	console.log(User, "potluck.js");
 	return (
 		<div className="">
 			<NavBar></NavBar>
