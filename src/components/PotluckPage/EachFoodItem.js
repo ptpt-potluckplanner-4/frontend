@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import styled from "styled-components";
 import axios from 'axios'
 
-export default function EachFoodItem({ FoodItem, User }) {
-    const [checked, setChecked] = useState({ boolean: false, contributor: "" });
-    const [committed, setCommitted] = useState(false)
-    const [contributing, setContributing] = useState();
-
-    //Component Styles for EachFoodItem
-    const StyledDiv = styled.div`
-        margin: 0 auto 30px auto;
-        width: 55%;
-        height: auto;
-        min-height: 40px;
-        min-width: 250px;
-        background: #f1f5f8;
-        background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
-        background-size: 25px 25px;
-        border-radius: 10px;
-        box-shadow: 4px 3px 7px 2px #00000040;
-        box-sizing: border-box;
-        padding: 0;
-        
+//Component Styles for EachFoodItem
+const StyledDiv = styled.div`
+   margin: 0 auto 30px auto;
+   width: 55%;
+   height: auto;
+   min-height: 40px;
+   min-width: 250px;
+   background: #f1f5f8;
+   background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
+   background-size: 25px 25px;
+   border-radius: 10px;
+   box-shadow: 4px 3px 7px 2px #00000040;
+   box-sizing: border-box;
+   padding: 0;
+   
 `;
-    const StyledHeader = styled.header`
-        background-color: #C1CFC0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-flow: row nowrap;
-        width: 100%;
-        height: 30px;
-        border-radius: 10px 10px 0px 0px;
-        margin: 0;
-        padding: 0;
+const StyledHeader = styled.header`
+   background-color: #C1CFC0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-flow: row nowrap;
+   width: 100%;
+   height: 30px;
+   border-radius: 10px 10px 0px 0px;
+   margin: 0;
+   padding: 0;
 `;
 
-    const StyledLabel = styled.label`
+const StyledLabel = styled.label`
 display: flex;
 flex-flow: row nowrap;
 align-items: center;
@@ -45,7 +40,7 @@ width: 100%;
 border-radius: 10px 10px 0px 0px;
 `;
 
-    const StyledLabel2 = styled.label`
+const StyledLabel2 = styled.label`
 display: flex;
 flex-flow: row nowrap;
 justify-content: flex-start;
@@ -55,14 +50,14 @@ width: 100%;
 border-radius: 10px 10px 0px 0px;
 `;
 
-    const StyledDiv2 = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+const StyledDiv2 = styled.div`
+display: flex;
+flex-flow: row nowrap;
+justify-content: center;
+align-items: center;
 `;
 
-    const StyledDiv3 = styled.div`
+const StyledDiv3 = styled.div`
 display: flex;
 flex-flow: row nowrap;
 justify-content: space-between;
@@ -70,18 +65,32 @@ align-items: center;
 padding: 0 10px;
 `;
 
-    const StyledP = styled.p`
+const StyledP = styled.p`
 font-weight: 700;
 font-size: 1.2rem;
 margin-left: 20px
 `;
 
-    const StyledButton = styled.button`
+const StyledP2 = styled.p`
+font-weight: 500;
+font-size: 1rem;
+margin-left: 20px
+padding: 10px;
+`;
+
+const StyledButton = styled.button`
 margin-left: 10px;
 margin-top: 2px;
 font-size: .7rem;
 width: 60px;
 `;
+
+
+export default function EachFoodItem({ FoodItem, User }) {
+    const [checked, setChecked] = useState({ boolean: false, contributor: "" });
+    const [committed, setCommitted] = useState(false)
+    const [contributing, setContributing] = useState();
+
 
     //TOGGLE THE CHECKBOX - CONTRIBUTING WHAT TO THE POTLUCK?
     function toggleCheckbox(e) {
@@ -95,8 +104,6 @@ width: 60px;
             setChecked({ boolean: false, contributor: "" })
             // remove User's Name from Contributor for that food
         }
-        console.log(checked, "checked");
-
 
     }
 
@@ -105,17 +112,18 @@ width: 60px;
         axios
             .put(`https://potluck-planner-04.herokuapp.com/potlucks/1/foods/${FoodItem.potluckFood_id}`) // replace 1 with state.user_id
             .then(res => {
-                setContributing(res.data);
-                setCommitted(true);
-                setChecked({ boolean: false, contributor: "" });
-                toggleCheckbox()
+                setContributing(res.data); // don't really need to do this unless we want to set in the profile
+
             })
             .catch(err => {
-                console.error('Server Error', err);
+                console.error('Server Error', err)
+            })
+            .finally(() => {
+                setChecked({ boolean: false, contributor: "" });
+                setCommitted(true);
+                console.log(contributing);
             });
     }
-    console.log(contributing);
-
 
     //   set your name as contributor of food from the list
     //   [PUT] https://potluck-planner-04.herokuapp.com/potlucks/:id/foods/:potluckFood_id
@@ -123,9 +131,6 @@ width: 60px;
     //   requires object: { contributor: state.user_id }
     //   returns updated object of that item { "potluckFood_id": 7, "food_name": "baked potatoes", "contributor": "Name of user" }
 
-
-
-    console.log(checked, "eachfooditem.js")
     return (
         <StyledDiv>
             <StyledHeader>
@@ -133,7 +138,9 @@ width: 60px;
             </StyledHeader>
             <StyledDiv2>
                 <StyledLabel>
-                    <StyledP>Contributor: </StyledP>
+                    <StyledP style={{ display: (committed === true) ? "inline" : "none" }} >{User}</StyledP>
+                    <StyledP style={{ display: (checked.boolean === true) ? "none" : "inline" }} >{checked.contributor}</StyledP>
+                    <StyledP2><span style={{ display: (committed === true || checked.boolean === true) ? "none" : "inline" }}>Sign Up:</span> </StyledP2>
                     <input
                         type="checkbox"
                         onChange={toggleCheckbox}
@@ -147,7 +154,10 @@ width: 60px;
                 <StyledLabel2>
                     <StyledDiv3>
                         <StyledP style={{ display: (checked.boolean === false) ? "none" : "inline" }} >{checked.contributor}</StyledP>
-                        <StyledButton style={{ display: (checked.boolean === false) ? "none" : "inline" }} onClick={commitToBringing} >Commit</StyledButton>
+                        <StyledP2><span style={{ display: (committed === true) ? "inline" : "none" }}>Committed PotLucker!</span> </StyledP2>
+
+
+                        <StyledButton style={{ display: (checked.boolean === false) ? "none" : "inline" }} onClick={commitToBringing} >Click to Commit</StyledButton>
                     </StyledDiv3>
                 </StyledLabel2>
             </StyledDiv2>

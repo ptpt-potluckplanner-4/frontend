@@ -108,7 +108,7 @@ export default function PotLuckDetails({ potLuck }) {
       .post('https://potluck-planner-04.herokuapp.com/potlucks/1/guests') // replace 1 with user id
       .then(res => {
         setGuestsComing(res.data);
-        console.log(res.data)
+        console.log(res.data, "res.data for attendPotluck")
       })
       .catch(err => {
         console.error('Server Error', err);
