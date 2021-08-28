@@ -39,7 +39,7 @@ export default function PotLuckList({ User }) {
 			<div className="">
 				{potLuckList.map((potLuck, i) => (
 					<div key={i}>
-						<PotLuckDetails potLuck={potLuck} />
+						<PotLuckDetails potLuck={potLuck} User={User} />
 					</div>
 				))}
 			</div>

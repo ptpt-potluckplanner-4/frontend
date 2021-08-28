@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -70,6 +70,13 @@ const StyledP = styled.p`
 	margin-left: 20px;
 `;
 
+const StyledP2 = styled.p`
+font-weight: 500;
+font-size: 1rem;
+margin-left: 20px
+padding: 10px;
+`;
+
 const StyledButton = styled.button`
 	margin-left: 10px;
 	margin-top: 2px;
@@ -77,9 +84,7 @@ const StyledButton = styled.button`
 	width: 60px;
 `;
 
-const EachFoodItem = (props) => {
-	const { FoodItem, User, potluckId } = props;
-
+export default function EachFoodItem({ FoodItem, User, pl }) {
 	const [checked, setChecked] = useState({ boolean: false, contributor: "" });
 	const [committed, setCommitted] = useState(false);
 	const [contributing, setContributing] = useState();
@@ -95,24 +100,24 @@ const EachFoodItem = (props) => {
 			setChecked({ boolean: false, contributor: "" });
 			// remove User's Name from Contributor for that food
 		}
-		console.log(checked, "checked");
 	}
 
 	//COMMIT TO BRINGING THE ITEM
 	const commitToBringing = () => {
 		axios
 			.put(
-				`https://potluck-planner-04.herokuapp.com/potlucks/1/foods/${FoodItem.potluckFood_id}`,
-			) // replace 1 with state.user_id
-			//this is hansel, I think the 1 us a potluckId
+				`https://potluck-planner-04.herokuapp.com/potlucks/${pl.potluck_id}/foods/${FoodItem.potluckFood_id}`,
+			) // replace 1 with potluck_id
 			.then((res) => {
-				setContributing(res.data);
-				setCommitted(true);
-				setChecked({ boolean: false, contributor: "" });
-				toggleCheckbox();
+				setContributing(res.data); // don't really need to do this unless we want to set in the profile
 			})
 			.catch((err) => {
 				console.error("Server Error", err);
+			})
+			.finally(() => {
+				setChecked({ boolean: false, contributor: "" });
+				setCommitted(true);
+				console.log(contributing);
 			});
 	};
 
@@ -129,7 +134,26 @@ const EachFoodItem = (props) => {
 			</StyledHeader>
 			<StyledDiv2>
 				<StyledLabel>
-					<StyledP>Contributor: </StyledP>
+					<StyledP style={{ display: committed === true ? "inline" : "none" }}>
+						{User}
+					</StyledP>
+					<StyledP
+						style={{ display: checked.boolean === true ? "none" : "inline" }}
+					>
+						{checked.contributor}
+					</StyledP>
+					<StyledP2>
+						<span
+							style={{
+								display:
+									committed === true || checked.boolean === true
+										? "none"
+										: "inline",
+							}}
+						>
+							Sign Up:
+						</span>{" "}
+					</StyledP2>
 					<input
 						type="checkbox"
 						onChange={toggleCheckbox}
@@ -146,17 +170,21 @@ const EachFoodItem = (props) => {
 						>
 							{checked.contributor}
 						</StyledP>
+						<StyledP2>
+							<span style={{ display: committed === true ? "inline" : "none" }}>
+								Committed PotLucker!
+							</span>{" "}
+						</StyledP2>
+
 						<StyledButton
 							style={{ display: checked.boolean === false ? "none" : "inline" }}
 							onClick={commitToBringing}
 						>
-							Commit
+							Click to Commit
 						</StyledButton>
 					</StyledDiv3>
 				</StyledLabel2>
 			</StyledDiv2>
 		</StyledDiv>
 	);
-};
-
-export default EachFoodItem;
+}

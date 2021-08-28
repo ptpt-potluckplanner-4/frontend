@@ -31,8 +31,6 @@ export default function PotLuckFoods({ pl, User }) {
 		getPotluckFoods();
 	}, []); // empty array makes this only run once
 
-	console.log(User, "potluckfoods.js");
-
 	return (
 		<div>
 			{<h2>Foods & Items for {pl.title}:</h2>}
@@ -46,10 +44,9 @@ export default function PotLuckFoods({ pl, User }) {
 				return (
 					<div>
 						<EachFoodItem
-							key={eachFoodItem.potluckFood_id}
 							FoodItem={eachFoodItem}
 							User={User}
-							potluckId={pl.potluck_id}
+							pl={pl}
 						></EachFoodItem>
 					</div>
 				);
