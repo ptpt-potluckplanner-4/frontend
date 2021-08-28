@@ -86,7 +86,7 @@ width: 60px;
 `;
 
 
-export default function EachFoodItem({ FoodItem, User }) {
+export default function EachFoodItem({ FoodItem, User, pl }) {
     const [checked, setChecked] = useState({ boolean: false, contributor: "" });
     const [committed, setCommitted] = useState(false)
     const [contributing, setContributing] = useState();
@@ -110,7 +110,7 @@ export default function EachFoodItem({ FoodItem, User }) {
     //COMMIT TO BRINGING THE ITEM
     const commitToBringing = () => {
         axios
-            .put(`https://potluck-planner-04.herokuapp.com/potlucks/1/foods/${FoodItem.potluckFood_id}`) // replace 1 with state.user_id
+            .put(`https://potluck-planner-04.herokuapp.com/potlucks/${pl.potluck_id}/foods/${FoodItem.potluckFood_id}`) // replace 1 with potluck_id
             .then(res => {
                 setContributing(res.data); // don't really need to do this unless we want to set in the profile
 

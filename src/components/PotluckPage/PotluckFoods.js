@@ -39,7 +39,7 @@ export default function PotLuckFoods({ pl, User }) {
       {foodArray.map(eachFoodItem => {
         return (
           <div>
-            <EachFoodItem FoodItem={eachFoodItem} User={User}></EachFoodItem>
+            <EachFoodItem FoodItem={eachFoodItem} User={User} pl={pl}></EachFoodItem>
           </div>
         )
       })}

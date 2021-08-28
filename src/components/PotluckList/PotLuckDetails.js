@@ -81,7 +81,7 @@ color: black;
 `;
 
 
-export default function PotLuckDetails({ potLuck }) {
+export default function PotLuckDetails({ potLuck, User }) {
   const { title, date, time, location, organizer, } = potLuck;
   const history = useHistory();
   const paramsLocation = history.location.pathname;
@@ -103,9 +103,10 @@ export default function PotLuckDetails({ potLuck }) {
   //[PUT] https://potluck-planner-04.herokuapp.com/potlucks/:id/foods/:potluckFood_id
 
   // recieve potluck list details
+  console.log(potLuck);
   const attendPotluck = () => {
     axios
-      .post('https://potluck-planner-04.herokuapp.com/potlucks/1/guests') // replace 1 with user id
+      .post(`https://potluck-planner-04.herokuapp.com/potlucks/${potLuck.potluck_id}/guests`, { guest: 1 }) // replace { guest: 1 } with user id
       .then(res => {
         setGuestsComing(res.data);
         console.log(res.data, "res.data for attendPotluck")
