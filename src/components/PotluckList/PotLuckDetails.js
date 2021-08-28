@@ -82,95 +82,96 @@ const StyledButton = styled.button`
 `;
 
 export default function PotLuckDetails({ potLuck, User }) {
-	const { title, date, time, location, organizer } = potLuck;
-	const history = useHistory();
-	const paramsLocation = history.location.pathname;
-	const [guestsComing, setGuestsComing] = useState([]);
+  const { title, date, time, location, organizer } = potLuck;
+  const history = useHistory();
+  const paramsLocation = history.location.pathname;
+  const [guestsComing, setGuestsComing] = useState([]);
 
-	// Toggles buttons depending on page
-	function ToggleAttendButton() {
-		if (paramsLocation === "/potlucklist") {
-			return { display: "block" };
-		} else {
-			return { display: "none" };
-		}
-	}
+  // Toggles buttons depending on page
+  const ToggleAttendButton = () => {
+    if (paramsLocation === "/potlucklist") {
+      return { display: "block" };
+    } else {
+      return { display: "none" };
+    }
+  }
 
-	function ToggleEditButton() {
-		if (paramsLocation === "/profile/organizing") {
-			return { display: "block" };
-		} else {
-			return { display: "none" };
-		}
-	}
+  const ToggleEditButton = () => {
+    if (paramsLocation === "/profile/organizing") {
+      return { display: "block" };
+    } else {
+      return { display: "none" };
+    }
+  }
 
-	function ToggleViewButton() {
-		if (paramsLocation === "/profile/attending") {
-			return { display: "block" };
-		} else {
-			return { display: "none" };
-		}
-	}
+  const ToggleViewButton = () => {
+    if (paramsLocation === "/profile/attending") {
+      return { display: "block" };
+    } else {
+      return { display: "none" };
+    }
+  }
 
-	//[PUT] https://potluck-planner-04.herokuapp.com/potlucks/:id/foods/:potluckFood_id
+  //[PUT] https://potluck-planner-04.herokuapp.com/potlucks/:id/foods/:potluckFood_id
 
-	// recieve potluck list details
-	console.log(potLuck);
-	const attendPotluck = () => {
-		axios
-			.post(
-				`https://potluck-planner-04.herokuapp.com/potlucks/${potLuck.potluck_id}/guests`,
-				{ guest: 1 },
-			) // replace { guest: 1 } with user id
-			.then((res) => {
-				setGuestsComing(res.data);
-				console.log(res.data, "res.data for attendPotluck");
-			})
-			.catch((err) => {
-				console.error("Server Error", err);
-			})
-			.finally(console.log(guestsComing), "guestsComing");
-	};
+  // recieve potluck list details
 
-	// Details could include the list functionality or we add another component
-	return (
-		<div className="">
-			<StyledSection>
-				<div>
-					<StyledHeaderDiv>
-						<StyledH2>{title}</StyledH2>
-					</StyledHeaderDiv>
-					<StyledDetailsDiv>
-						<StyledP>
-							<StyledSpan>When:</StyledSpan> {date}, {time}
-						</StyledP>
-						<StyledP>
-							<StyledSpan>Where:</StyledSpan> {location}
-						</StyledP>
-						<StyledP>
-							<StyledSpan>Planned By:</StyledSpan> {organizer}
-						</StyledP>
-						<Link
-							style={{ textDecoration: "none" }}
-							to={`/potlucklist/${potLuck.potluck_id}`}
-						>
-							<StyledButton
-								onClick={attendPotluck()}
-								style={ToggleAttendButton()}
-							>
-								Attend
-							</StyledButton>
-							<StyledButton style={ToggleViewButton()}>View</StyledButton>
-						</Link>
-						<Link
-							style={{ textDecoration: "none" }}
-							to={`/profile/organizing/${potLuck.potluck_id}`}
-						>
-							<StyledButton style={ToggleEditButton()}>Edit</StyledButton>
-						</Link>
-					</StyledDetailsDiv>
-				</div>
-			</StyledSection>
-		</div>
-	);
+  const attendPotluck = () => {
+
+    axios
+      .post(
+        `https://potluck-planner-04.herokuapp.com/potlucks/${potLuck.potluck_id}/guests`,
+        { guest: 6 },
+      ) // replace { guest: 1 } with user id
+      .then((res) => {
+        setGuestsComing(res.data);
+        console.log(res.data, "res.data for attendPotluck");
+      })
+      .catch((err) => {
+        console.error("Server Error", err);
+      })
+      .finally(console.log(guestsComing), "guestsComing");
+  };
+
+  // Details could include the list functionality or we add another component
+  return (
+    <div className="">
+      <StyledSection>
+        <div>
+          <StyledHeaderDiv>
+            <StyledH2>{title}</StyledH2>
+          </StyledHeaderDiv>
+          <StyledDetailsDiv>
+            <StyledP>
+              <StyledSpan>When:</StyledSpan> {date}, {time}
+            </StyledP>
+            <StyledP>
+              <StyledSpan>Where:</StyledSpan> {location}
+            </StyledP>
+            <StyledP>
+              <StyledSpan>Planned By:</StyledSpan> {organizer}
+            </StyledP>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/potlucklist/${potLuck.potluck_id}`}
+            >
+              <StyledButton
+                onClick={attendPotluck}
+                style={ToggleAttendButton()}
+              >
+                Attend
+              </StyledButton>
+              <StyledButton style={ToggleViewButton()}>View</StyledButton>
+            </Link>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/profile/organizing/${potLuck.potluck_id}`}
+            >
+              <StyledButton style={ToggleEditButton()}>Edit</StyledButton>
+            </Link>
+          </StyledDetailsDiv>
+        </div>
+      </StyledSection>
+    </div>
+  );
 }
